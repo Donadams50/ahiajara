@@ -4,7 +4,7 @@ const Members = db.profiles;
 const Auths = db.auths;
 const passwordUtils =require('../helpers/passwordUtils');
 const jwtTokenUtils = require('../helpers/jwtTokenUtils.js');
-const sendemail = require('../Helpers/emailhelper.js');
+const sendemail = require('../helpers/emailhelper.js');
 
 const { signToken } = jwtTokenUtils;
 const uuid = require('uuid')
