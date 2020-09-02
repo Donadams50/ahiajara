@@ -57,14 +57,54 @@ exports.create = async(req, res) => {
   // Find all products 
 exports.findAllProducts = async (req, res) => {
     try{
-        const findAllProduct = await Products.find()
+        console.log(req.query)
+      
+        const resultsPerPage =  parseInt(req.query.limit);
+        const offset1 = parseInt(req.query.offset);
+        console.log(resultsPerPage)
+        console.log(offset1)
+        if(offset1 === 1){
+            const findAllProduct = await Products.find().sort({ _id: "desc" })
+            .limit(resultsPerPage)
+            console.log(findAllProduct)
+            res.status(200).send(findAllProduct)
+        }else{
+            const page = offset1 -1;
+        const findAllProduct = await Products.find().sort({ _id: "desc" })
+        .limit(resultsPerPage)
+        .skip(resultsPerPage * page)
         console.log(findAllProduct)
         res.status(200).send(findAllProduct)
-         
-                  
-           
+    }        
        }catch(err){
            console.log(err)
-           res.status(500).send({message:"Error while creating product "})
+           res.status(500).send({message:"Error while getting product "})
        }
+};
+
+// Update a a product
+exports.update = async(req, res) => {
+    const _id = req.params.id;
+    const products = new Products({
+        _id : req.params.id,
+        name: req.body.name,
+        imgUrl: req.file.url,
+        quantityAvailable: req.body.quantityAvailable,
+        price: req.body.price
+      });
+
+                    try{
+                        const updateProduct = await Products.updateOne( {_id}, products)
+                           console.log(updateProduct)
+                        //   const getProduct = await Products.findOne({_id:_id})
+                        if(updateProduct.nModified === 1){
+                           res.status(200).send({message:"Product updated "})
+                        } else{
+                            res.status(400).send({message:"Product not updated "})
+                        }
+                        }
+                    catch(err){
+                            console.log(err)
+                            res.status(500).send({message:"Error while updating product "})
+                        }
 };
