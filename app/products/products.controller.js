@@ -1,6 +1,7 @@
 const db = require("../mongoose");
 const Products = db.products;
-
+ require('../Cloudinary/cloudinary.js')
+ const upload = require('../Cloudinary/multer.js');
 
 // Add new product to database
 exports.create = async(req, res) => {
@@ -85,15 +86,20 @@ exports.findAllProducts = async (req, res) => {
 // Update a a product
 exports.update = async(req, res) => {
     const _id = req.params.id;
+    console.log(req.body)
+     
+ if(req.file ){
+     console.log("first")
     const products = new Products({
         _id : req.params.id,
         name: req.body.name,
-        imgUrl: req.file.url,
+       imgUrl: req.file.url,
         quantityAvailable: req.body.quantityAvailable,
         price: req.body.price
       });
+       try{
 
-                    try{
+
                         const updateProduct = await Products.updateOne( {_id}, products)
                            console.log(updateProduct)
                         //   const getProduct = await Products.findOne({_id:_id})
@@ -107,4 +113,35 @@ exports.update = async(req, res) => {
                             console.log(err)
                             res.status(500).send({message:"Error while updating product "})
                         }
+      }else{
+          console.log("second")
+          
+           const products = new Products({
+        _id : req.params.id,
+        name: req.body.name,
+       imgUrl: req.body.files,
+        quantityAvailable: req.body.quantityAvailable,
+        price: req.body.price
+      });
+      console.log(products)
+       try{
+
+
+                        const updateProduct = await Products.updateOne( {_id}, products)
+                           console.log(updateProduct)
+                        //   const getProduct = await Products.findOne({_id:_id})
+                        if(updateProduct.nModified === 1){
+                           res.status(200).send({message:"Product updated "})
+                        } else{
+                            res.status(400).send({message:"Product not updated "})
+                        }
+                        }
+                    catch(err){
+                            console.log(err)
+                            res.status(500).send({message:"Error while updating product "})
+                        }
+      }
+    //  
+
+                   
 };

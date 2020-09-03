@@ -2,6 +2,8 @@ const  jwt =require('jsonwebtoken');
 const dotenv=require('dotenv');
 
 dotenv.config();
+  require('../Cloudinary/cloudinary.js')
+    const upload = require('../Cloudinary/multer.js');
 
 exports.signToken= (id, fName, lName, Username, isadmin, phoneNumber, createdat, updatedat, isverified, userEmail)=> {
     const key = process.env.SECRET_KEY;
@@ -40,8 +42,7 @@ exports.signToken= (id, fName, lName, Username, isadmin, phoneNumber, createdat,
           res.status(401).json({ status: 401, error: 'Unauthorized to access this resource' });
           
         }
-       
-  
-   
     
   }
+
+  
