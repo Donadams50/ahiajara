@@ -56,8 +56,9 @@ console.log(req.body)
                 auths.password = await passwordUtils.hashPassword(req.body.password.toLowerCase());
                 const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
                 const subject = 'Succesful Registration link';                      
-                const hostUrl = "elastic-poincare-04c7cc.netlify.app/"
-                 const hostUrl2 = "https://elastic-poincare-04c7cc.netlify.app/" 
+               const hostUrl = "ahiajara.netlify.app/dashboard"
+                 const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
+              
               
             const   text = "We're excited to have you get started. Your Registration to Ahiajara skin care  was successful."
                 const emailTo = req.body.email.toLowerCase();

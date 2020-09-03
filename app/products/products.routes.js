@@ -8,6 +8,6 @@ module.exports = app => {
         
  app.post("/product",  verifyToken, isAdmin, upload.single("files"), product.create)
  app.get("/products",  verifyToken,  product.findAllProducts)
- app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  ,   product.update)
-
+ app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
+app.get("/products/count",  verifyToken, isAdmin,  product.count)
 }

@@ -1,7 +1,6 @@
 const db = require("../mongoose");
 const Products = db.products;
- require('../Cloudinary/cloudinary.js')
- const upload = require('../Cloudinary/multer.js');
+ const sendemail = require('../helpers/emailhelper.js');
 
 // Add new product to database
 exports.create = async(req, res) => {
@@ -83,7 +82,7 @@ exports.findAllProducts = async (req, res) => {
        }
 };
 
-// Update a a product
+// Update a product
 exports.update = async(req, res) => {
     const _id = req.params.id;
     console.log(req.body)
@@ -144,4 +143,17 @@ exports.update = async(req, res) => {
     //  
 
                    
+};
+
+  // Count all products 
+exports.count = async (req, res) => {
+    try{
+
+        const countProduct = await Products.countDocuments()
+        console.log(countProduct)
+          res.status(200).send({countOfAllProduct:countProduct})
+     }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while counting product "})
+       }
 };
