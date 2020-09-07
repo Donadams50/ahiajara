@@ -30,7 +30,7 @@ db.mongoose
  require("./app/members/members.routes.js")(app)
  require("./app/products/products.routes.js")(app)
  require("./app/orders/orders.routes.js")(app)
- require("./app/skinissues/skinissues.routes.js")(app)
+ require("./app/skinIssues/skinissues.routes.js")(app)
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to peep to peer application." });
   });
