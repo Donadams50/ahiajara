@@ -126,7 +126,7 @@ exports.createSkinIssue = async(req, res) => {
     // Find all products 
 exports.findSkinIssue = async (req, res) => {
     try{
-        console.log(req.query)
+        console.log()
       
         const resultsPerPage =  parseInt(req.query.limit);
         const offset1 = parseInt(req.query.offset);
