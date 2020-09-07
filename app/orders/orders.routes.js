@@ -7,7 +7,7 @@ module.exports = app => {
  
         
  app.post("/order",  verifyToken,  upload.single("files"), order.create)
-  app.get("/orders",  verifyToken,  isAdmin, order.findAllOrder)
+  app.get("/orders",  verifyToken,  isAdmin, order.findPendingOrder)
 //  app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
  app.get("/orders/count",  verifyToken, isAdmin,  order.count)
 }

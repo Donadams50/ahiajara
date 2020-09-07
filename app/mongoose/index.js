@@ -10,6 +10,8 @@ db.url = process.env.url;
 db.products = require("../products/products.model.js")(mongoose);
 db.profiles = require("../members/members.model.js")(mongoose);
 db.orders = require("../orders/orders.model.js")(mongoose);
+db.symptoms = require("../skinissues/skinissues.symptoms.model.js")(mongoose);
+db.skinissues = require("../skinissues/skinissues.model.js")(mongoose);
 db.auths = require("../members/auth.model.js")(mongoose);
 module.exports = db;
 

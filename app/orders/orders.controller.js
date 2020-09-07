@@ -20,7 +20,7 @@ exports.create = async(req, res) => {
           const orders = new Orders({
               name: req.body.name,
               imgUrl: req.file.url,
-              quantityAvailable: req.body.quantityAvailable,
+              quantity: req.body.quantityRequested,
               price: req.body.price,
               status: "Pending",
               userId: req.user.id
@@ -71,7 +71,7 @@ exports.create = async(req, res) => {
 
 
 
-exports.findAllOrder = async (req, res) => {
+exports.findPendingOrder = async (req, res) => {
     try{
         // console.log(req.query)
       
@@ -86,11 +86,12 @@ exports.findAllOrder = async (req, res) => {
             // res.status(200).send(findAllProduct)
         // }else{
             // const page = offset1 -1;
-        const findAllOrder = await Orders.find().sort({ _id: "desc" })
+            let status = "Pending"
+        const findPendingOrder = await Orders.find({status: status}).sort({ _id: "desc" })
         // .limit(resultsPerPage)
         // .skip(resultsPerPage * page)
-        console.log(findAllOrder)
-        res.status(200).send(findAllOrder)
+        console.log(findPendingOrder)
+        res.status(200).send(findPendingOrder)
     // }        
        }catch(err){
            console.log(err)
