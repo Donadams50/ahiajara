@@ -67,7 +67,7 @@ exports.findSymptoms = async (req, res) => {
          let category = req.params.category;
         const findSymptoms = await Symptoms.find({category:category}).sort({ _id: "desc" })
         console.log(findSymptoms)
-        res.status(200).send(findSymptoms.category)
+        res.status(200).send(findSymptoms[0])
          
        }catch(err){
            console.log(err)
