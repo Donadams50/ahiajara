@@ -2,7 +2,7 @@ module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         category: String,
-        symptom:String,
+        symptom:Array,
       },
       { timestamps: true }
     );
