@@ -27,17 +27,21 @@ exports.createSymptom = async(req, res) => {
   
        
           try{
-           const isSymptomExist = await Symptoms.findOne({symptom: symptom} )
-           console.log(isSymptomExist)
-             if(isSymptomExist){
-             
-                res.status(400).send({message:"Symptom already  exists"})
+    //           details.updateOne(
+    // { name: "John" },
+    // { $addToSet: { locations: ["New York", "Texas", "Detroit"] } },
+           const savesymptom = await Symptoms.updateOne({category: category}, { $addToSet: { symptom: [symptom] } } )
+           console.log(savesymptom)
+             if(savesymptom){
+             res.status(201).send({message:"symptom created"})
+                
               
              }else{
                
-                const savesymptom = await symptoms.save()
-                console.log(savesymptom)
-               res.status(201).send({message:"symptom created"})
+            //     const savesymptom = await symptoms.save()
+            //     console.log(savesymptom)
+            //    res.status(201).send({message:"symptom created"})
+            res.status(400).send({message:"Symptom already  exists"})
               
         }
                      
@@ -63,7 +67,7 @@ exports.findSymptoms = async (req, res) => {
          let category = req.params.category;
         const findSymptoms = await Symptoms.find({category:category}).sort({ _id: "desc" })
         console.log(findSymptoms)
-        res.status(200).send(findSymptoms)
+        res.status(200).send(findSymptoms.category)
          
        }catch(err){
            console.log(err)
