@@ -10,5 +10,6 @@ module.exports = app => {
  app.get("/products",  verifyToken,  product.findAllProducts)
  app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
 app.get("/products/count",  verifyToken, isAdmin,  product.count)
+
 app.get("/products/:category",  verifyToken, isAdmin,  product.getByCategory)
 }

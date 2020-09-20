@@ -33,7 +33,7 @@ db.mongoose
  require("./app/skinIssues/skinissues.routes.js")(app)
  require("./app/bespoke/bespoke.routes.js")(app)
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to peep to peer application." });
+  res.sendFile(path.join(__dirname+'/index1.html'));
   });
 
 // Connect to port

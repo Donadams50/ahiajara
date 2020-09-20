@@ -154,10 +154,15 @@ exports.update = async(req, res) => {
   // Count all products 
 exports.count = async (req, res) => {
     try{
-
+         let category1 = "Hair"
+         let category2 = "Skin"
         const countProduct = await Products.countDocuments()
+        const countProductHair = await Products.countDocuments({category:category1})
+        const countProductSkin = await Products.countDocuments({category:category2})
+        console.log(countProductHair)
         console.log(countProduct)
-          res.status(200).send({countOfAllProduct:countProduct})
+        console.log(countProductSkin)
+          res.status(200).send({countOfAllProduct:countProduct,countHair:countProductHair,counSkin:countProductSkin})
      }catch(err){
            console.log(err)
            res.status(500).send({message:"Error while counting product "})
