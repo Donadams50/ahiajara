@@ -6,10 +6,10 @@ const Products = db.products;
 exports.create = async(req, res) => {
   console.log(req.body)
   // let {myrefCode} = req.query;
-  const {   name, quantityAvailable  , price } = req.body;
+  const {   name, quantityAvailable  , price , category, description} = req.body;
   
-  if ( price && quantityAvailable && name ){
-      if ( name==="" || price==="" || quantityAvailable==="" ){
+  if ( price && quantityAvailable && name && category ){
+      if ( name==="" || price==="" || quantityAvailable==="" || category==="" ){
           res.status(400).send({
               message:"Incorrect entry format"
           });
@@ -21,7 +21,9 @@ exports.create = async(req, res) => {
               name: req.body.name,
               imgUrl: req.file.url,
               quantityAvailable: req.body.quantityAvailable,
-              price: req.body.price
+              price: req.body.price,
+              category: req.body.category,
+              description: req.body.description
         
             });
   
@@ -94,7 +96,9 @@ exports.update = async(req, res) => {
         name: req.body.name,
        imgUrl: req.file.url,
         quantityAvailable: req.body.quantityAvailable,
-        price: req.body.price
+        price: req.body.price,
+        category: req.body.category,
+        description: req.body.description
       });
        try{
 
@@ -120,7 +124,9 @@ exports.update = async(req, res) => {
         name: req.body.name,
        imgUrl: req.body.files,
         quantityAvailable: req.body.quantityAvailable,
-        price: req.body.price
+        price: req.body.price,
+        category: req.body.category,
+        description: req.body.description
       });
       console.log(products)
        try{
@@ -155,5 +161,35 @@ exports.count = async (req, res) => {
      }catch(err){
            console.log(err)
            res.status(500).send({message:"Error while counting product "})
+       }
+};
+
+//get product by category
+exports.getByCategory = async (req, res) => {
+    try{
+        console.log(req.query)
+      
+        const resultsPerPage =  parseInt(req.query.limit);
+        const offset1 = parseInt(req.query.offset);
+        let category = req.params.category;
+        console.log(resultsPerPage)
+        console.log(offset1)
+        if(offset1 === 1){
+            
+            const findAllProduct = await Products.find({category:category}).sort({ _id: "desc" })
+            .limit(resultsPerPage)
+            console.log(findAllProduct)
+            res.status(200).send(findAllProduct)
+        }else{
+            const page = offset1 -1;
+        const findAllProduct = await Products.find({category:category}).sort({ _id: "desc" })
+        .limit(resultsPerPage)
+        .skip(resultsPerPage * page)
+        console.log(findAllProduct)
+        res.status(200).send(findAllProduct)
+    }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting product "})
        }
 };
