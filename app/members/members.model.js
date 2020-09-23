@@ -10,7 +10,8 @@ module.exports = mongoose => {
       forgotPasswordCode:String,
       isVerified: Boolean,
       password: String,
-      isAdmin: Boolean
+      isAdmin: Boolean,
+      shippingAddress: String
     },
     { timestamps: true }
   );

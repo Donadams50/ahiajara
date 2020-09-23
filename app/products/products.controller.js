@@ -198,3 +198,19 @@ exports.getByCategory = async (req, res) => {
            res.status(500).send({message:"Error while getting product "})
        }
 };
+
+//get product by id
+exports.getById = async (req, res) => {
+    try{
+        let id = req.params.id;
+        
+            
+            const findProduct = await Products.find({id:id})
+            res.status(200).send(findProduct)
+            //console.log(findProduct)
+                          
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting product "})
+       }
+};

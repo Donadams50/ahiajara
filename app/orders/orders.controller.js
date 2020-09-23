@@ -1,15 +1,20 @@
 const db = require("../mongoose");
 const Orders = db.orders;
+const Members = db.profiles;
+const Products = db.products;
+const Dispatchs = db.dispatchs;
+
+
   const sendemail = require('../helpers/emailhelper.js');
 
 // Add new product to database
 exports.create = async(req, res) => {
   console.log(req.body)
   // let {myrefCode} = req.query;
-  const {   name, quantityAvailable  , price } = req.body;
+  const {   name, quantityRequested  , price } = req.body;
   
-  if ( price && quantityAvailable && name ){
-      if ( name==="" || price==="" || quantityAvailable==="" ){
+  if ( price && quantityRequested && name ){
+      if ( name==="" || price==="" || quantityRequested==="" ){
           res.status(400).send({
               message:"Incorrect entry format"
           });
@@ -23,7 +28,10 @@ exports.create = async(req, res) => {
               quantity: req.body.quantityRequested,
               price: req.body.price,
               status: "Pending",
-              userId: req.user.id
+              userId: req.user.id,
+              firstName: req.user.firstName,
+              lastName: req.user.lastName,
+              productId: req.body.productId
 
         
             });
@@ -61,7 +69,97 @@ exports.create = async(req, res) => {
   }
   };
 
+// dispatch order
+exports.dispatchOrder = async(req, res) => {
+    console.log(req.body)
+    const {   fullName, companyName  , phoneNumber,  orderId} = req.body;
+    
+    if (  fullName && companyName && phoneNumber &&  orderId ){
+        if ( fullName==="" || companyName==="" || phoneNumber==="" || orderId=== "" ){
+            res.status(400).send({
+                message:"Incorrect entry format"
+            });
+        }else{
+      // console.log(req.file)
+      // console.log( JSON.stringify( req.file.url ) ) 
+          
+            const dispatchs = new Dispatchs({
+                fullName: req.body.fullName,
+                companyName: req.body.companyName,
+                phoneNumber: req.body.phoneNumber,
+                orderId: req.body.orderId,
+                dispatcherId: req.body.dispatcher   
+              });
+    
+         
+            try{
+            //    const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
+            //       const subject = 'Dispatch alert';                      
+            //       const hostUrl = "ahiajara.netlify.app/dashboard"
+            //        const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
+            //     const admin = "Admin"
+            //       const   text = "An new order from "+req.user.firstName+" "+req.user.lastName+" has been placed, Login to the dashboard to view" 
+            //      const emailTo = 'tomiczilla@gmail.com'
+            //      const link = `${hostUrl}`;
+            //        const link2 = `${hostUrl2}`;
+            //        processEmail(emailFrom, emailTo, subject, link, link2, text, admin);
+              
+                 
+                  const makedispatch = await  dispatchs.save()
+                  console.log(makedispatch)
+                
+                    const _id = req.body.orderId;
 
+                const updateProduct = await Orders.findOneAndUpdate({ _id }, { status: 'Dispatched' });
+    
+                  console.log(updateProduct)
+
+                 res.status(201).send({message:"Order dispatched succesfully"})
+                
+         
+                       
+        
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while dispatching order "})
+            }
+        }
+    }else{
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+    }
+    };
+
+// complete order
+exports.completeOrder = async(req, res) => {
+    
+    
+    
+    
+         
+            try{
+                          
+                 
+                 
+                
+                    const _id = req.params.orderId;
+
+                const updateOrder = await Orders.findOneAndUpdate({ _id }, { status: 'Completed' });
+    
+                  console.log(updateOrder)
+
+                 res.status(201).send({message:"Order mark completed succesfully"})
+
+         
+                       
+        
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while completing order "})
+            }
+     
+    };
 
 
   // process email one
@@ -99,7 +197,60 @@ exports.findPendingOrder = async (req, res) => {
        }
 };
 
+exports.findOrder = async (req, res) => {
+    try{
+        // console.log(req.query)
+      
+        // const resultsPerPage =  parseInt(req.query.limit);
+        // const offset1 = parseInt(req.query.offset);
+        // console.log(resultsPerPage)
+        // console.log(offset1)
+        // if(offset1 === 1){
+            // const findAllProduct = await Products.find().sort({ _id: "desc" })
+            // .limit(resultsPerPage)
+            // console.log(findAllProduct)
+            // res.status(200).send(findAllProduct)
+        // }else{
+            // const page = offset1 -1;
+            let status = req.params.status
+        const findOrder = await Orders.find({status: status}).sort({ _id: "desc" })
+        // .limit(resultsPerPage)
+        // .skip(resultsPerPage * page)
+        console.log(findOrder)
+        res.status(200).send(findOrder)
+    // }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting orders "})
+       }
+};
 
+exports.findOrderById = async (req, res) => {
+    try{
+         console.log(req.params.id)
+         let orderDetails = {}
+            let id = req.params.id
+        const findOrder = await Orders.findOne({_id: id})
+        console.log(findOrder)
+        const findDispatchDetails = await Dispatchs.findOne({orderId: id})
+        
+        const findMemberById = await Members.findOne({_id: findOrder.userId})
+        const findProduct = await Products.findOne({_id:findOrder.productId})
+        console.log(findOrder)
+        console.log(findMemberById)
+        console.log(findProduct)
+        orderDetails.order = findOrder
+        orderDetails.userDetails = findMemberById
+        orderDetails.productDetails = findProduct
+        orderDetails.dispatchDetails = findDispatchDetails
+        console.log(orderDetails)
+        res.status(200).send(orderDetails)
+    // }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting orders "})
+       }
+};
 exports.count = async (req, res) => {
     try{
 const status = "Pending"

@@ -6,7 +6,10 @@ module.exports = mongoose => {
         quantity:Number,
         price:String,
         status: String,
-        userId: String
+        userId: String,
+        firstName: String,
+        lastName: String,
+        productId: String
       },
       { timestamps: true }
     );

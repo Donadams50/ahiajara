@@ -175,6 +175,24 @@ exports.findAllMembers = async (req, res) => {
            res.status(500).send({message:"Error while getting all users "})
        }
 };
+
+
+// find member by the id in the request
+exports.findMembeById = async (req, res) => {
+   try{
+       
+            let id = req.params.id
+        const findMemberById = await Members.find({id: id})
+       
+        console.log(findMemberById)
+        res.status(200).send(findMemberById)
+    // }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting member "})
+       }
+
+};
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
 
