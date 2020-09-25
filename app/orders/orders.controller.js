@@ -258,6 +258,8 @@ const status1 = "Completed"
 allCount ={}
         const countPending = await Orders.countDocuments({status: status})
          const countCompleted = await Orders.countDocuments({status: status1})
+         console.log(countPending)
+         console.log(countCompleted)
         allCount.pendingOrder = countPending;
         allCount.completedOrder = countCompleted;
           res.status(200).send({countOfAllOrder:allCount})

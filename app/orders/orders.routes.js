@@ -11,7 +11,7 @@ module.exports = app => {
   app.get("/orders/:status",  verifyToken,  isAdmin, order.findOrder)
   app.get("/order/:id",  verifyToken,  isAdmin, order.findOrderById)
 //  app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
- app.get("/orders/count",  verifyToken, isAdmin,  order.count)
+ app.get("/count/orders",  verifyToken, isAdmin,  order.count)
  app.post("/dispatchorder",  verifyToken, isAdmin,  order.dispatchOrder)
  app.post("/completeorder/:orderId",  verifyToken,   order.completeOrder)
 }
