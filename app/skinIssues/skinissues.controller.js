@@ -33,7 +33,7 @@ exports.update = async(req, res) => {
     
          
             try{
-                const updateProduct = await Skinissues.updateOne( {_id}, products)
+                const updateProduct = await Skinissues.updateOne( {_id}, skinissues)
              
                  
                 
@@ -61,7 +61,7 @@ exports.update = async(req, res) => {
     
          
             try{
-                const updateProduct = await Skinissues.updateOne( {_id}, products)
+                const updateProduct = await Skinissues.updateOne( {_id}, skinissues)
             
                  res.status(201).send({message:"Skin issue  created"})
           
