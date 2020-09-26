@@ -4,6 +4,88 @@ const Symptoms = db.symptoms;
 
  const sendemail = require('../helpers/emailhelper.js');
 
+
+ // Update a product
+exports.update = async(req, res) => {
+    const _id = req.params.id;
+    console.log(req.body)
+
+    const {   name, description, category, symptom  } = req.body;
+    
+    if ( category && symptom && name && description){
+        if ( category==="" || symptom==="" || name ==="" || description ===""){
+            res.status(400).send({
+                message:"Incorrect entry format"
+            });
+        }else{
+            if(req.file ){
+  
+                //   _id : req.params.id,
+                  
+            const skinissues = new Skinissues({
+                category: req.body.category,
+                imgUrl: req.file.url,
+                symptom: req.body.symptom,
+                 name: req.body.name,
+                description: req.body.description     
+              });
+             
+    
+         
+            try{
+                const updateProduct = await Skinissues.updateOne( {_id}, products)
+             
+                 
+                
+                 res.status(201).send({message:"Skin issue  created"})
+                
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while creating Skin issue "})
+            }
+          
+          
+                                
+                                   
+                                  
+                }else{
+                    
+            const skinissues = new Skinissues({
+                category: req.body.category,
+                imgUrl: req.body.files,
+                symptom: req.body.symptom,
+                 name: req.body.name,
+                description: req.body.description     
+              });
+    
+         
+            try{
+                const updateProduct = await Skinissues.updateOne( {_id}, products)
+            
+                 res.status(201).send({message:"Skin issue  created"})
+          
+                       
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while creating Skin issue "})
+            }
+                } 
+          
+        }
+    }else{
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+    }
+     
+
+    //  
+
+                   
+};
+
  // Add new symptom  to category
 exports.createSymptom = async(req, res) => {
   console.log(req.body)
@@ -27,9 +109,7 @@ exports.createSymptom = async(req, res) => {
   
        
           try{
-    //           details.updateOne(
-    // { name: "John" },
-    // { $addToSet: { locations: ["New York", "Texas", "Detroit"] } },
+    
            const savesymptom = await Symptoms.updateOne({category: category}, { $addToSet: { symptom: [symptom] } } )
            console.log(savesymptom)
              if(savesymptom){
@@ -77,7 +157,7 @@ exports.findSymptoms = async (req, res) => {
 
 exports.createSkinIssue = async(req, res) => {
   console.log(req.body)
-  // let {myrefCode} = req.query;
+
   const {   name, description, category, symptom  } = req.body;
   
   if ( category && symptom && name && description){
