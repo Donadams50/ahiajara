@@ -22,6 +22,7 @@ exports.signToken= (id, fName, lName, Username, isadmin, phoneNumber, createdat,
           console.log(error)
           res.status(401).json({ status: 401, error: 'Unauthorized' });
         }else{
+          console.log(decoded)
            req.user = decoded;
           next();
         }

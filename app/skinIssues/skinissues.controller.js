@@ -23,6 +23,7 @@ exports.update = async(req, res) => {
                 //   _id : req.params.id,
                   
             const skinissues = new Skinissues({
+                _id : req.params.id,
                 category: req.body.category,
                 imgUrl: req.file.url,
                 symptom: req.body.symptom,
@@ -52,6 +53,7 @@ exports.update = async(req, res) => {
                 }else{
                     
             const skinissues = new Skinissues({
+                _id : req.params.id,
                 category: req.body.category,
                 imgUrl: req.body.files,
                 symptom: req.body.symptom,
@@ -166,7 +168,7 @@ exports.createSkinIssue = async(req, res) => {
               message:"Incorrect entry format"
           });
       }else{
-    // console.log(req.file)
+     console.log(req.file)
     // console.log( JSON.stringify( req.file.url ) ) 
         
           const skinissues = new Skinissues({

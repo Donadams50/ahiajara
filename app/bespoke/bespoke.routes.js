@@ -6,9 +6,11 @@ module.exports = app => {
  
         
  app.post("/question",  verifyToken, isAdmin, bespoke.create);
-  app.get("/questions",  verifyToken, isAdmin,  bespoke.findQuestions);
-//   app.post("/skinissue",  verifyToken, isAdmin, upload.single("files"), skinissue.createSkinIssue);
-//   app.get("/skinissue",  verifyToken, isAdmin,   skinissue.findSkinIssue);
-//  app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
-// app.get("/products/count",  verifyToken, isAdmin,  product.count)
+ app.get("/questions",  verifyToken,   bespoke.findQuestions);
+ app.delete("/questions/:id",  verifyToken, isAdmin, bespoke.deleteQuestion);
+ app.put("/questions/:id",  verifyToken,  isAdmin,    bespoke.update);
+ app.post("/entry",  verifyToken, bespoke.postEntry);
+ app.get("/entry",  verifyToken, isAdmin,  bespoke.getEntry);
+ app.get("/entry/:id",  verifyToken, isAdmin,  bespoke.getSingleEntry)
+ app.put("/entry/:id",  verifyToken,  isAdmin,    bespoke.reply);
 }

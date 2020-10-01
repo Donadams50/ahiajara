@@ -122,7 +122,7 @@ if ( email && password ){
             const isMatch = await passwordUtils.comparePassword(password.toLowerCase(), retrievedPassword);
             console.log(isMatch )
              if (isMatch){
-              const tokens = signToken( id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified) 
+              const tokens = signToken( id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email) 
                let user = {}
              
                   user.profile = { id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email } 
