@@ -16,5 +16,6 @@ db.skinissues = require("../skinIssues/skinissues.model.js")(mongoose);
 db.auths = require("../members/auth.model.js")(mongoose);
 db.bespokes = require("../bespoke/bespoke.model.js")(mongoose);
 db.entrys = require("../bespoke/entry.model.js")(mongoose);
+db.carts = require("../cart/cart.model.js")(mongoose);
 module.exports = db;
 

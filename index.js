@@ -32,6 +32,8 @@ db.mongoose
  require("./app/orders/orders.routes.js")(app)
  require("./app/skinIssues/skinissues.routes.js")(app)
  require("./app/bespoke/bespoke.routes.js")(app)
+ require("./app/cart/cart.routes.js")(app)
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname+'/index1.html'));
   });

@@ -205,9 +205,9 @@ exports.getById = async (req, res) => {
         let id = req.params.id;
         
             
-            const findProduct = await Products.find({id:id})
+            const findProduct = await Products.find({_id:id})
             res.status(200).send(findProduct)
-            //console.log(findProduct)
+            console.log(findProduct)
                           
        }catch(err){
            console.log(err)
