@@ -12,5 +12,5 @@ module.exports = app => {
 app.get("/products/count",  verifyToken, isAdmin,  product.count)
 
 app.get("/products/:category",  verifyToken, isAdmin,  product.getByCategory)
-app.get("/singleproducts/:id",  verifyToken, isAdmin,  product.getById)
+app.get("/singleproducts/:id",  verifyToken,   product.getById)
 }
