@@ -4,7 +4,9 @@ module.exports = mongoose => {
         name: String,
         imgUrl:String,
         category:String,
-        symptom:Array,
+        symptom:[{
+          type:String
+        }],
         description: String
       },
       { timestamps: true }
