@@ -174,7 +174,7 @@ exports.createSkinIssue = async(req, res) => {
           const skinissues = new Skinissues({
               category: req.body.category,
               imgUrl: req.file.url,
-              symptom: req.body.symptom,
+              symptom: JSON.parse(req.body.symptom),
                name: req.body.name,
               description: req.body.description     
             });
