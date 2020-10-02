@@ -2,6 +2,7 @@
 const db = require("../mongoose");
 const Members = db.profiles;
 const Auths = db.auths;
+const Carts = db.carts;
 const passwordUtils =require('../helpers/passwordUtils');
 const jwtTokenUtils = require('../helpers/jwtTokenUtils.js');
 const sendemail = require('../helpers/emailhelper.js');
@@ -123,10 +124,14 @@ if ( email && password ){
             console.log(isMatch )
              if (isMatch){
               const tokens = signToken( id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email) 
-               let user = {}
+            //  const Carts = db.carts;
+            //const findProduct = await Products.find({_id:id}) 
+            const countcart = await Carts.countDocuments({userId:id})
+            let user = {}
              
                   user.profile = { id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email } 
-                  user.token = tokens;                
+                  user.token = tokens;   
+                  user.cartcount = countcart             
                   res.status(200).send(user)                         
           }else{
               res.status(400).json({message:"Incorrect Login Details"})

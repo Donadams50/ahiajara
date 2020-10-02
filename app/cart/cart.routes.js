@@ -5,8 +5,8 @@ module.exports = app => {
    
  
         
-//  app.post("/question",  verifyToken, isAdmin, bespoke.create);
-//  app.get("/questions",  verifyToken,   bespoke.findQuestions);
+  app.post("/cart",  verifyToken,  cart.create);
+   app.get("/cart/:id",  verifyToken,   cart.findCartByUserId);
 //  app.delete("/questions/:id",  verifyToken, isAdmin, bespoke.deleteQuestion);
 //  app.put("/questions/:id",  verifyToken,  isAdmin,    bespoke.update);
 //  app.post("/entry",  verifyToken, bespoke.postEntry);

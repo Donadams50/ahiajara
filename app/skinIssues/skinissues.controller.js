@@ -13,7 +13,7 @@ exports.update = async(req, res) => {
     const {   name, description, category, symptom  } = req.body;
     
     if ( category && symptom && name && description){
-        if ( category==="" || symptom==="" || name ==="" || description ===""){
+        if ( category==="" || symptom.length=== 0 || name ==="" || description ===""){
             res.status(400).send({
                 message:"Incorrect entry format"
             });
@@ -163,7 +163,7 @@ exports.createSkinIssue = async(req, res) => {
   const {   name, description, category, symptom  } = req.body;
   
   if ( category && symptom && name && description){
-      if ( category==="" || symptom==="" || name ==="" || description ===""){
+      if ( category==="" || symptom.length === 0 || name ==="" || description ===""){
           res.status(400).send({
               message:"Incorrect entry format"
           });
