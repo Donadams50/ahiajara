@@ -26,7 +26,7 @@ exports.update = async(req, res) => {
                 _id : req.params.id,
                 category: req.body.category,
                 imgUrl: req.file.url,
-                symptom: req.body.symptom,
+                symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
                 description: req.body.description     
               });
