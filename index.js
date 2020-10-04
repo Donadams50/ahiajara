@@ -33,7 +33,8 @@ db.mongoose
  require("./app/skinIssues/skinissues.routes.js")(app)
  require("./app/bespoke/bespoke.routes.js")(app)
  require("./app/cart/cart.routes.js")(app)
-  require("./questionaire/questionaire.routes.js")(app)
+ 
+  require("./app/questionaire/questionaire.routes.js")(app)
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname+'/index1.html'));
