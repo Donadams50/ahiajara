@@ -66,11 +66,29 @@ exports.findCartByUserId = async (req, res) => {
             
             const findcart = await Carts.find({_id:id})
             console.log(findcart)
-            res.status(200).send(findProduct)
-            console.log(findProduct)
+            res.status(200).send(findcart)
+            console.log(findcart)
                           
        }catch(err){
            console.log(err)
            res.status(500).send({message:"Error while getting product "})
        }
 };
+
+    //get cart by userid
+    exports.countCart = async (req, res) => {
+        try{
+           // let id = req.params.id;
+            
+                
+             
+                const countCart = await Carts.countDocuments({userId:categidory1})
+                console.log(countCart)
+                res.status(200).send(countCart)
+               
+                              
+           }catch(err){
+               console.log(err)
+               res.status(500).send({message:"Error while getting cart count "})
+           }
+    };
