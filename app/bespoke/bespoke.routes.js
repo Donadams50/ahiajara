@@ -9,7 +9,7 @@ module.exports = app => {
  app.get("/questions",  verifyToken,   bespoke.findQuestions);
  app.delete("/questions/:id",  verifyToken, isAdmin, bespoke.deleteQuestion);
  app.put("/questions/:id",  verifyToken,  isAdmin,    bespoke.update);
- app.post("/entry",  verifyToken, bespoke.postEntry);
+ app.post("/bespokeentry",  verifyToken, bespoke.postEntry);
  app.get("/entry",  verifyToken, isAdmin,  bespoke.getEntry);
  app.get("/entry/:id",  verifyToken, isAdmin,  bespoke.getSingleEntry)
  app.put("/entry/:id",  verifyToken,  isAdmin,    bespoke.reply);

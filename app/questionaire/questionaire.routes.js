@@ -9,7 +9,7 @@ module.exports = app => {
  app.get("/questioniare",  verifyToken,   questionaire.findQuestions);
   app.delete("/questioniare/:id",  verifyToken, isAdmin, questionaire.deleteQuestion);
   app.put("/questioniare/:id",  verifyToken,  isAdmin,    questionaire.update);
-  app.post("/questioniareentry",  verifyToken, questionaire.postEntry);
+  app.post("/questionniareentry",  verifyToken, questionaire.postEntry);
   app.get("/questioniareentry",  verifyToken, isAdmin,  questionaire.getEntry);
   app.get("/questioniareentry/:id",  verifyToken, isAdmin,  questionaire.getSingleEntry)
  app.put("/questioniareentry/:id",  verifyToken,  isAdmin,    questionaire.reply);

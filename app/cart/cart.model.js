@@ -1,7 +1,9 @@
 module.exports = mongoose => {
+  var Schema = mongoose.Schema;
     var schema = mongoose.Schema(
       {
-        productId: String,
+        // productId: String,
+        productId: { type: Schema.Types.ObjectId, ref: 'product' },
         quantitySelected:Number,
         userId:String
         

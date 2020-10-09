@@ -38,6 +38,10 @@ exports.create = async(req, res) => {
              }else{
                
                 const saveproduct = await  products.save()
+
+                // const data = await Project.findOne({ _id: project_id });
+                // data['folders'].addToSet(addFolder._id); 
+                // data.save();
                 console.log(saveproduct)
                res.status(201).send({message:"Product created"})
               

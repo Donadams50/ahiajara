@@ -1,6 +1,6 @@
 const db = require("../mongoose");
-const Bespokes = db.bespokes;
-const Entrys = db.entrys;
+const   Questionaires = db.questionaires;
+const Questionaireentrys = db.questionaireentrys;
 
 
  const sendemail = require('../helpers/emailhelper.js');
@@ -19,7 +19,7 @@ exports.create = async(req, res) => {
       }else{
   
         
-          const bespoke = new Bespokes({
+          const questionaire = new Questionaires({
             question: req.body.question,
             type: req.body.type,
             options: req.body.options
@@ -30,7 +30,7 @@ exports.create = async(req, res) => {
        
           try{
     
-            const savebespoke = await  bespoke.save()
+            const savebespoke = await  questionaire.save()
             console.log(savebespoke)
          
              if(savebespoke){
@@ -61,7 +61,7 @@ exports.create = async(req, res) => {
   exports.findQuestions = async (req, res) => {
     try{
        ;
-        const findQuestions = await Bespokes.find().sort({ _id: "desc" })
+        const findQuestions = await Questionaires.find().sort({ _id: "desc" })
         console.log(findQuestions)
         res.status(200).send(findQuestions)
          
@@ -84,7 +84,7 @@ exports.update = async (req, res) => {
        try{
 
 
-                        const updateBespoke = await Bespokes.updateOne( {_id}, bespoke)
+                        const updateBespoke = await Questionaires.updateOne( {_id}, bespoke)
                            console.log(updateBespoke)
                         //   const getProduct = await Products.findOne({_id:_id})
                         if(updateBespoke.nModified === 1){
@@ -102,7 +102,7 @@ exports.update = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
     try{
         const id = req.params.id;
-        const deleteQuestions = await Bespokes.findByIdAndRemove(id)
+        const deleteQuestions = await Questionaires.findByIdAndRemove(id)
         console.log(deleteQuestions)
         res.status(200).send(deleteQuestions)
          
@@ -115,7 +115,7 @@ exports.deleteQuestion = async (req, res) => {
 exports.getEntry = async (req, res) => {
     try{
        
-        const findEntries = await Entrys.find().sort({ _id: "desc" })
+        const findEntries = await Questionaireentrys.find().sort({ _id: "desc" })
         console.log(findEntries)
         res.status(200).send(findEntries)
          
@@ -132,7 +132,7 @@ exports.getSingleEntry = async (req, res) => {
         console.log(req.params.id)
         
            let id = req.params.id
-       const findSingleEntry = await Entrys.findOne({_id: id})
+       const findSingleEntry = await Questionaireentrys.findOne({_id: id})
        console.log(findSingleEntry)
        
        
@@ -163,7 +163,7 @@ exports.reply = async(req, res) => {
         
             const _id = req.params.id;
 
-        const updateEntry = await Entrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
+        const updateEntry = await Questionaireentrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
 
           console.log(updateEntry)
 
@@ -179,6 +179,7 @@ exports.reply = async(req, res) => {
 }
 
 };
+
 exports.postEntry = async(req, res) => {
     console.log(req.user.email)
     // let {myrefCode} = req.query;
@@ -192,7 +193,7 @@ exports.postEntry = async(req, res) => {
         }else{
     
           
-            const entrys = new Entrys({
+            const questionaireentrys = new Questionaireentrys({
                 entryCode: getReferralCode(),
                 username:req.user.username,
                 firstName: req.user.firstName,
@@ -206,7 +207,7 @@ exports.postEntry = async(req, res) => {
          
             try{
       
-              const saveentry = await  entrys.save()
+              const saveentry = await  questionaireentrys.save()
               console.log(saveentry)
            
                if(saveentry){
