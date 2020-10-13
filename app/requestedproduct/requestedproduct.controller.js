@@ -58,7 +58,8 @@ exports.create = async(req, res) => {
                 email:req.body.email,
                 address:req.body.address,
                 country:req.body.country,
-                city: req.body.city
+                city: req.body.city,
+                reply: " "
                 
           
               });
@@ -232,3 +233,38 @@ exports.create = async(req, res) => {
                res.status(500).send({message:"Error while getting product "})
            }
     };
+
+    exports.reply = async(req, res) => {
+    const {   reply } = req.body;
+    
+        if ( reply===""){
+            res.status(400).send({
+                message:"Incorrect entry format"
+            });
+        }
+    
+    else{
+         
+    try{
+                  
+        
+         
+        
+            const _id = req.params.id;
+
+        const updateRequestedProduct = await Requestedproducts.findOneAndUpdate({ _id }, { reply: req.body.reply });
+
+          console.log(updateRequestedProduct)
+
+         res.status(200).send({message:"Reply was saved  succesfully"})
+
+ 
+               
+
+    }catch(err){
+        console.log(err)
+        res.status(500).send({message:"Error while updating requested product "})
+    }
+}
+
+};

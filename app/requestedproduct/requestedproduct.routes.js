@@ -9,5 +9,5 @@ module.exports = app => {
    app.get("/requestedproductuser/:userId",  verifyToken,   requestedproduct.findRequestedProductByUserId);
    app.get("/requestproduct",  verifyToken, isAdmin,   requestedproduct.findAll);
    app.get("/requestedproduct/:productId",  verifyToken, isAdmin,   requestedproduct.findRequestedProductById);
-
+   app.put("/reply/:id",  verifyToken, isAdmin,   requestedproduct.reply);
 }

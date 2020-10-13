@@ -13,4 +13,7 @@ app.get("/products/count",  verifyToken, isAdmin,  product.count)
 
 app.get("/products/:category",  verifyToken, isAdmin,  product.getByCategory)
 app.get("/singleproducts/:id",  verifyToken,   product.getById)
+app.post("/adverts",  verifyToken, isAdmin, upload.single("files"), product.saveAdvertsImage)
+app.get("/adverts",  verifyToken,  product.findAllAdverts)
+app.delete("/adverts/:id",  verifyToken, isAdmin, product.deleteAdvert);
 }

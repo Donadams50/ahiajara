@@ -20,5 +20,6 @@ db.carts = require("../cart/cart.model.js")(mongoose);
 db.questionaires = require("../questionaire/questionaire.model.js")(mongoose);
 db.questionaireentrys = require("../questionaire/questionaireentry.model.js")(mongoose);
 db.requestedproducts = require("../requestedproduct/requestedproduct.model.js")(mongoose);
+db.adverts = require("../products/ads.model.js")(mongoose);
 module.exports = db;
 

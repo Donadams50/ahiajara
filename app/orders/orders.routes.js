@@ -14,4 +14,6 @@ module.exports = app => {
  app.get("/count/orders",  verifyToken, isAdmin,  order.count)
  app.post("/dispatchorder",  verifyToken, isAdmin,  order.dispatchOrder)
  app.post("/completeorder/:orderId",  verifyToken,   order.completeOrder)
+  app.get("/completedorder/:userId",  verifyToken,  isAdmin, order.completedOrderByUserId)
+   app.get("/incompletedorder/:userId",  verifyToken,  isAdmin, order.inCompletedOrderByUserId)
 }

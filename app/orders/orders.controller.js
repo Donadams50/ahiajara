@@ -171,19 +171,7 @@ exports.completeOrder = async(req, res) => {
 
 exports.findPendingOrder = async (req, res) => {
     try{
-        // console.log(req.query)
-      
-        // const resultsPerPage =  parseInt(req.query.limit);
-        // const offset1 = parseInt(req.query.offset);
-        // console.log(resultsPerPage)
-        // console.log(offset1)
-        // if(offset1 === 1){
-            // const findAllProduct = await Products.find().sort({ _id: "desc" })
-            // .limit(resultsPerPage)
-            // console.log(findAllProduct)
-            // res.status(200).send(findAllProduct)
-        // }else{
-            // const page = offset1 -1;
+        
             let status = "Pending"
         const findPendingOrder = await Orders.find({status: status}).sort({ _id: "desc" })
         // .limit(resultsPerPage)
@@ -281,3 +269,36 @@ async function processEmail(emailFrom, emailTo, subject, link, link2, text, fNam
   }
 
 }
+
+exports.completedOrderByUserId = async (req, res) => {
+    try{
+      
+            let status = "Completed"
+            let userId = req.params.userId
+        const findOrder = await Orders.find({status: status, userId: userId} ).sort({ _id: "desc" })
+        
+        console.log(findOrder)
+        res.status(200).send(findOrder)
+    // }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting orders "})
+       }
+};
+
+exports.inCompletedOrderByUserId = async (req, res) => {
+    try{
+      
+            let status = "Pending"
+             let status1 = "Dispatched"
+              let userId = req.params.userId
+        const findOrder = await Orders.find({$or:[{status: status1, userId: userId},{status: status, userId: userId}]} ).sort({ _id: "desc" })
+   
+        console.log(findOrder)
+        res.status(200).send(findOrder)
+    // }        
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting orders "})
+       }
+};

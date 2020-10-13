@@ -1,5 +1,6 @@
 const db = require("../mongoose");
 const Products = db.products;
+const Adverts = db.adverts;
  const sendemail = require('../helpers/emailhelper.js');
 
 // Add new product to database
@@ -218,3 +219,79 @@ exports.getById = async (req, res) => {
            res.status(500).send({message:"Error while getting product "})
        }
 };
+
+exports.saveAdvertsImage = async(req, res) => {
+  console.log(req.body)
+  // let {myrefCode} = req.query;
+  const { description} = req.body;
+  
+  if ( description ){
+      if ( description==="" ){
+          res.status(400).send({
+              message:"Incorrect entry format"
+          });
+      }else{
+    // console.log(req.file)
+    // console.log( JSON.stringify( req.file.url ) ) 
+        
+          const adverts = new Adverts({
+              
+              imgUrl: req.file.url,
+              description: req.body.description,
+          
+        
+            });
+  
+       
+          try{
+           
+                const saveadverts = await  adverts.save()
+
+                // const data = await Project.findOne({ _id: project_id });
+                // data['folders'].addToSet(addFolder._id); 
+                // data.save();
+                console.log(saveadverts)
+               res.status(201).send({message:"advert created"})
+              
+       
+                     
+              
+          }catch(err){
+              console.log(err)
+              res.status(500).send({message:"Error while creating adverts "})
+          }
+      }
+  }else{
+      res.status(400).send({
+          message:"Incorrect entry format"
+      });
+  }
+  };
+
+  
+    exports.findAllAdverts = async (req, res) => {
+    try{
+        
+
+            const findAllAdverts = await Adverts.find()
+            
+            res.status(200).send(findAllAdverts)
+              
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting adverts "})
+       }
+};
+
+exports.deleteAdvert = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const deleteAdvert = await Adverts.findByIdAndRemove(id)
+        console.log(deleteAdvert)
+        res.status(200).send(deleteAdvert)
+         
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting questions "})
+       }
+}

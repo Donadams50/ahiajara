@@ -11,7 +11,8 @@ module.exports = mongoose => {
           email:String,
           address:String,
           country:String,
-          city: String
+          city: String,
+          reply: String
           
         },
         { timestamps: true }
