@@ -180,16 +180,16 @@ exports.reply = async(req, res) => {
 
 };
 exports.postEntry = async(req, res) => {
-    console.log(req.user.email)
+    console.log(req.body)
     // let {myrefCode} = req.query;
-    const {   questionAndAnswer } = req.body;
+    // const {   questionAndAnswer } = req.body;
     
-    if ( questionAndAnswer ){
-        if ( questionAndAnswer===""){
-            res.status(400).send({
-                message:"Incorrect entry format"
-            });
-        }else{
+    // if ( questionAndAnswer ){
+    //     if ( questionAndAnswer===""){
+    //         res.status(400).send({
+    //             message:"Incorrect entry format"
+    //         });
+    //     }else{
     
           
             const entrys = new Entrys({
@@ -198,7 +198,7 @@ exports.postEntry = async(req, res) => {
                 firstName: req.user.firstName,
                 lastName: req.user.lastName,
                 email: req.user.email,
-                questionAndAnswer:req.body.questionAndAnswer,
+                questionAndAnswer:req.body,
                 reply: "",
           
               });
@@ -225,12 +225,12 @@ exports.postEntry = async(req, res) => {
                 console.log(err)
                 res.status(500).send({message:"Error while creating question "})
             }
-        }
-    }else{
-        res.status(400).send({
-            message:"Incorrect entry format"
-        });
-    }
+       // }
+    // }else{
+    //     res.status(400).send({
+    //         message:"Incorrect entry format"
+    //     });
+    // }
     };
 
 
