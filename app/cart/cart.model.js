@@ -5,7 +5,12 @@ module.exports = mongoose => {
         // productId: String,
         productId: { type: Schema.Types.ObjectId, ref: 'product' },
         quantitySelected:Number,
-        userId:String
+        userId:String,
+        productCategory:String,
+        productPrice:String,
+        productImgUrl:String,
+        productName:String
+
         
       },
       { timestamps: true }

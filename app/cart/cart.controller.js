@@ -52,7 +52,11 @@ const logger = winston.createLogger({
             const cart = new Carts({
                 productId: req.body.productId,
                 userId: req.body.userId,
-                quantitySelected: req.body.quantitySelected
+                quantitySelected: req.body.quantitySelected,
+                productName: req.body.productName,
+                productImgUrl: req.body.productImgUrl,
+                productPrice:req.body.productPrice,
+                productCategory: req.body.productCategory
                 
           
               });
@@ -126,19 +130,16 @@ exports.findCartByUserId = async (req, res) => {
       console.log(req.query)
         let id = req.params.id;         
             const findcart = await Carts.find({userId:id})
-            .populate('productId')
-            logger.log({
-              level: 'info',
-              message:"Successfull",
-              params: req.params,
-              query: req.query,
-              url: req.url,         
-              time :  new Date()
-          
-            });
-            logger.add(new winston.transports.Console({
-              format: winston.format.simple()
-            }));
+           // .populate('productId')
+          //  for(var i = 0; i< findcart.length; i++){
+          //    findcart[i].productId.userd =   findcart[i].userId
+          //    console.log(findcart[i])
+          //   //  findcart[i].img =   findcart[i].productId.imgUrl
+            //  findcart[i].priceItem =   findcart[i].productId.price
+            //  findcart[i].categoryiTEM=   findcart[i].productId.category
+
+           //}
+           //console.log(findcart)
             res.status(200).send(findcart)
            
                           
