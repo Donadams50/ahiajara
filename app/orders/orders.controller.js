@@ -13,8 +13,8 @@ exports.create = async(req, res) => {
   // let {myrefCode} = req.query;
   const {   name, quantityRequested  , price } = req.body;
   
-  if ( price && quantityRequested && name ){
-      if ( name==="" || price==="" || quantityRequested==="" ){
+  if ( totalPrice && paymentId && products ){
+      if ( totalPrice==="" || paymentId===""  ){
           res.status(400).send({
               message:"Incorrect entry format"
           });
@@ -23,15 +23,14 @@ exports.create = async(req, res) => {
     // console.log( JSON.stringify( req.file.url ) ) 
         
           const orders = new Orders({
-              name: req.body.name,
-              imgUrl: req.file.url,
-              quantity: req.body.quantityRequested,
-              price: req.body.price,
+             
+              paymentId: req.body.paymentId,
+              totalPrice: req.body.totalPrice,
               status: "Pending",
               userId: req.user.id,
               firstName: req.user.firstName,
               lastName: req.user.lastName,
-              productId: req.body.productId
+              products: req.body.products
 
         
             });
