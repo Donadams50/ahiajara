@@ -28,7 +28,8 @@ exports.update = async(req, res) => {
                 imgUrl: req.file.url,
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
-                description: req.body.description     
+                description: req.body.description,
+                recommendedProducts: JSON.parse(req.body.recommendedProducts)    
               });
              
     
@@ -58,7 +59,8 @@ exports.update = async(req, res) => {
                 imgUrl: req.body.files,
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
-                description: req.body.description     
+                description: req.body.description,
+                recommendedProducts: JSON.parse(req.body.recommendedProducts)  
               });
     
          
@@ -176,7 +178,8 @@ exports.createSkinIssue = async(req, res) => {
               imgUrl: req.file.url,
               symptom: JSON.parse(req.body.symptom),
                name: req.body.name,
-              description: req.body.description     
+              description: req.body.description, 
+              recommendedProducts: JSON.parse(req.body.recommendedProducts) 
             });
   
        
