@@ -239,3 +239,24 @@ exports.findSkinIssue = async (req, res) => {
            res.status(500).send({message:"Error while getting all skin issue "})
        }
 };
+
+
+exports.createNewSkinIssue = async(req, res) => {
+    console.log(req.body)
+   console.log(req.file.url)
+   
+    
+   
+    };
+exports.findAllSkinIssue = async (req, res) => {
+        try{
+             
+                const findAllSkinIssue = await Skinissues.find().sort({ _id: "desc" })
+                console.log(findAllSkinIssue)             
+                res.status(200).send(findAllSkinIssue)
+                 
+           }catch(err){
+               console.log(err)
+               res.status(500).send({message:"Error while getting all skin issue "})
+           }
+    };
