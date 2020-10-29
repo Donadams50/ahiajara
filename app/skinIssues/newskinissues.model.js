@@ -1,13 +1,8 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
-        
-        messageTo: String,
-        read: Boolean,
-        messageFrom:String,
-        message: String
-        
-     
+        body: Object,
+      
       },
       { timestamps: true }
     );
@@ -18,8 +13,7 @@ module.exports = mongoose => {
       return object;
     });
   
-    const Notification = mongoose.model("notification", schema);
-    return Notification;
+    const Newskinissue = mongoose.model("newskinissue", schema);
+    return Newskinissue;
   };
   
- 

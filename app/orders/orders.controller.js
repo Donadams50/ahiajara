@@ -214,23 +214,30 @@ exports.findOrder = async (req, res) => {
 
 exports.findOrderById = async (req, res) => {
     try{
-         console.log(req.params.id)
+        // console.log(req.params.id)
          let orderDetails = {}
             let id = req.params.id
         const findOrder = await Orders.findOne({_id: id})
-        console.log(findOrder)
+       console.log(findOrder.userId)
+        console.log(findOrder.productId)
+        console.log(findOrder.firstName)
+        console.log(findOrder.lastName)
+        console.log(findOrder.imgUrl)
+        console.log(findOrder.price)
+        console.log(findOrder.status)
+        console.log(findOrder.name)
         const findDispatchDetails = await Dispatchs.findOne({orderId: id})
         
         const findMemberById = await Members.findOne({_id: findOrder.userId})
-        const findProduct = await Products.findOne({_id:findOrder.productId})
-        console.log(findOrder)
-        console.log(findMemberById)
-        console.log(findProduct)
+        const findProduct = await Products.findOne({_id:  findOrder.productId})
+        
+      //  console.log(findMemberById)
+       // console.log(findProduct)
         orderDetails.order = findOrder
         orderDetails.userDetails = findMemberById
         orderDetails.productDetails = findProduct
         orderDetails.dispatchDetails = findDispatchDetails
-        console.log(orderDetails)
+     //   console.log(orderDetails)
         res.status(200).send(orderDetails)
     // }        
        }catch(err){

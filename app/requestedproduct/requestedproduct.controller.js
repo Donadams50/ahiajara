@@ -1,5 +1,7 @@
 const db = require("../mongoose");
 const Requestedproducts = db.requestedproducts;
+const Notifications = db.notifications;
+const Members = db.profiles;
 const winston = require('winston');
 
 const logger = winston.createLogger({
@@ -63,24 +65,26 @@ exports.create = async(req, res) => {
                 
           
               });
+              
     
          
             try{
-      
+              const findadmin = await Members.findOne({isAdmin: 'true'} )
+              console.log(findadmin)
+              console.log(findadmin.id)
+              const notify = new Notifications({
+                messageTo: findadmin.id,              
+                read: false,
+                messageFrom: req.user.id,
+                message: 'A new product request from '+req.user.firstName+' '+req.body.lastName+''
+                
+          
+              });
               const  requestedProduct = await  requestedproduct.save()
-              console.log(requestedProduct)
+              //console.log(requestedProduct)
            
                if(requestedProduct._id){
-                logger.log({
-                    level: 'info',
-                    message:"added  succesfuly",
-                    
-                    time :  new Date()
-                
-                  });
-                  logger.add(new winston.transports.Console({
-                    format: winston.format.simple()
-                  }));
+                const  requestedProduct = await  notify.save()
                res.status(201).send({message:"Requested  succesfuly"})
                   
                 

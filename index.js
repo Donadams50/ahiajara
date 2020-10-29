@@ -35,6 +35,7 @@ db.mongoose
  require("./app/cart/cart.routes.js")(app)
  require("./app/questionaire/questionaire.routes.js")(app)
  require("./app/requestedproduct/requestedproduct.routes.js")(app)
+ require("./app/notification/notification.routes.js")(app)
 
 
 

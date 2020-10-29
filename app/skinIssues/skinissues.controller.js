@@ -1,6 +1,7 @@
 const db = require("../mongoose");
 const Skinissues = db.skinissues;
 const Symptoms = db.symptoms;
+const Newskinissues = db.newskinissues;
 
  const sendemail = require('../helpers/emailhelper.js');
 
@@ -59,10 +60,10 @@ exports.update = async(req, res) => {
                 imgUrl: req.body.files,
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
-                description: req.body.description,
-                recommendedProducts: JSON.parse(req.body.recommendedProducts)  
+                description: req.body.description
+                
               });
-    
+         //     recommendedProducts: JSON.parse(req.body.recommendedProducts)  
          
             try{
                 const updateProduct = await Skinissues.updateOne( {_id}, skinissues)
@@ -170,7 +171,7 @@ exports.createSkinIssue = async(req, res) => {
               message:"Incorrect entry format"
           });
       }else{
-     console.log(req.file)
+     console.log(req.file.url)
     // console.log( JSON.stringify( req.file.url ) ) 
         
           const skinissues = new Skinissues({
@@ -178,8 +179,8 @@ exports.createSkinIssue = async(req, res) => {
               imgUrl: req.file.url,
               symptom: JSON.parse(req.body.symptom),
                name: req.body.name,
-              description: req.body.description, 
-              recommendedProducts: JSON.parse(req.body.recommendedProducts) 
+              description: req.body.description
+              
             });
   
        
@@ -242,8 +243,43 @@ exports.findSkinIssue = async (req, res) => {
 
 
 exports.createNewSkinIssue = async(req, res) => {
+   // console.log(req)
     console.log(req.body)
    console.log(req.file.url)
+  
+
+   const {   body  } = req.body;
+   
+   if (body){
+       if ( body === ""){
+           res.status(400).send({
+               message:"Incorrect entry format"
+           });
+       }else{
+        body.imgUrl = req.file.url
+         
+           const newskinissues = new Newskinissues({
+               body: body
+               
+               
+             });
+   
+        
+           try{ 
+                 const savenewskinissues = await  newskinissues.save()
+                 console.log(savenewskinissues)
+                res.status(201).send({message:"Skin issue  posted"})
+      
+           }catch(err){
+               console.log(err)
+               res.status(500).send({message:"Error while creating Skin issue "})
+           }
+       }
+   }else{
+       res.status(400).send({
+           message:"Incorrect entry format"
+       });
+   }
    
     
    
