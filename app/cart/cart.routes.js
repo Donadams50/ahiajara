@@ -8,7 +8,7 @@ module.exports = app => {
   app.post("/cart",  verifyToken,  cart.create);
    app.get("/cart/:id",  verifyToken,   cart.findCartByUserId);
    app.get("/cartcount/:id",  verifyToken,   cart.countCart); 
-//  app.delete("/questions/:id",  verifyToken, isAdmin, bespoke.deleteQuestion);
+    app.delete("/cart/:id",  verifyToken,  cart.deleteCart);
 //  app.put("/questions/:id",  verifyToken,  isAdmin,    bespoke.update);
 //  app.post("/entry",  verifyToken, bespoke.postEntry);
 //  app.get("/entry",  verifyToken, isAdmin,  bespoke.getEntry);

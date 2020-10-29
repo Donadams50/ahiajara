@@ -179,3 +179,16 @@ exports.findCartByUserId = async (req, res) => {
                res.status(500).send({message:"Error while getting cart count "})
            }
     };
+
+    exports.deleteCart = async (req, res) => {
+      try{
+          const id = req.params.id;
+          const deletecart = await Carts.findByIdAndRemove(id)
+          console.log(deletecart)
+          res.status(200).send(deletecart)
+           
+         }catch(err){
+             console.log(err)
+             res.status(500).send({message:"Error while deleting quecartstions "})
+         }
+  }
