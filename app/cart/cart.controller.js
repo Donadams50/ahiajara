@@ -185,7 +185,7 @@ exports.findCartByUserId = async (req, res) => {
           const id = req.params.id;
           const deletecart = await Carts.findByIdAndRemove(id)
           console.log(deletecart)
-          res.status(200).send(deletecart)
+          res.status(200).send({message:"Cart deleted  succesfully "})
            
          }catch(err){
              console.log(err)

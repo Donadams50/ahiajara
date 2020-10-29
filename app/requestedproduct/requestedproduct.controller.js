@@ -76,6 +76,8 @@ exports.create = async(req, res) => {
                 messageTo: findadmin.id,              
                 read: false,
                 messageFrom: req.user.id,
+                messageFromFirstname: req.user.firstName,
+                messageFromLastname: req.user.lastName,
                 message: 'A new product request from '+req.user.firstName+' '+req.body.lastName+''
                 
           

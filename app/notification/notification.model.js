@@ -5,7 +5,9 @@ module.exports = mongoose => {
         messageTo: String,
         read: Boolean,
         messageFrom:String,
-        message: String
+        message: String,
+        messageFromFirstname:String,
+        messageFromLastname:String
         
      
       },
