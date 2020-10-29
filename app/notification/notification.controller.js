@@ -112,34 +112,7 @@ exports.Notification = async(req, res) => {
     }
     };
 
-    exports.getNotification = async (req, res) => {
-        try{
-         
-            let userId = req.params.userId;         
-                const findrequestedProduct = await Requestedproducts.find({userId:userId})
-                .populate('productId')
-                console.log(findrequestedProduct)
-                res.status(200).send(findrequestedProduct)
-               
-                              
-           }catch(err){
-            logger.log({
-              level: 'error',
-              message:"Server error",
-              params: req.params,
-                  query: req.query,
-                  url: req.url,
-                  statusCode: 500,
-              time :  new Date()
-          
-            });
-            logger.add(new winston.transports.Console({
-              format: winston.format.simple()
-            }));
-               console.log(err)
-               res.status(500).send({message:"Error while getting product "})
-           }
-    };
+    
 
     
 
@@ -162,10 +135,14 @@ exports.Notification = async(req, res) => {
     exports.findAllNotifications = async (req, res) => {
       try{
        
-          ;         
+              let data = {}   
               const findAllNotification = await Notifications.find()
-              console.log(findAllNotification)               
-              res.status(200).send(findAllNotification)
+              const countunread = await Notifications.countDocuments({read:false})
+              console.log(findAllNotification)  
+              console.log(countunread)   
+              data.allNotification = findAllNotification
+              data.countunread = countunread          
+              res.status(200).send(data)
              
                             
          }catch(err){
