@@ -34,7 +34,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "uuid": "^7.0.2",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"
