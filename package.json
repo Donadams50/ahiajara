@@ -1,7 +1,7 @@
 {
   "name": "ahiajara",
   "version": "1.0.0",
-  "description": "web app on skin care product",
+  "description": "web app on skin care products",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
