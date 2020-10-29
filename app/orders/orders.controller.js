@@ -19,8 +19,7 @@ exports.create = async(req, res) => {
               message:"Incorrect entry format"
           });
       }else{
-    // console.log(req.file)
-    // console.log( JSON.stringify( req.file.url ) ) 
+    
         
           const orders = new Orders({
              
