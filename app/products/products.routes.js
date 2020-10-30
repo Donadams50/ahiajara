@@ -10,7 +10,7 @@ module.exports = app => {
  app.get("/products",  verifyToken,  product.findAllProducts)
  app.put("/products/:id",  verifyToken,  isAdmin, upload.single("files")  , product.update)
 app.get("/products/count",  verifyToken, isAdmin,  product.count)
-
+app.delete("/products/:id",  verifyToken, isAdmin, product.deleteProduct);
 app.get("/products/:category",  verifyToken, isAdmin,  product.getByCategory)
 app.get("/singleproducts/:id",  verifyToken,   product.getById)
 app.post("/adverts",  verifyToken, isAdmin, upload.single("files"), product.saveAdvertsImage)

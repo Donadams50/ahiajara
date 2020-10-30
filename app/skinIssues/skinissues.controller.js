@@ -284,6 +284,7 @@ exports.createNewSkinIssue = async(req, res) => {
     
    
     };
+
 exports.findAllSkinIssue = async (req, res) => {
         try{
              
@@ -296,3 +297,16 @@ exports.findAllSkinIssue = async (req, res) => {
                res.status(500).send({message:"Error while getting all skin issue "})
            }
     };
+
+exports.deleteSkinIssue = async (req, res) => {
+        try{
+            const id = req.params.id;
+            const deleteskinIssue = await Skinissues.findByIdAndRemove(id)
+            console.log(deleteskinIssue)
+            res.status(200).send({message:"Deleted succesfully"})
+             
+           }catch(err){
+               console.log(err)
+               res.status(500).send({message:"Error while getting questions "})
+           }
+    }

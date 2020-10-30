@@ -13,5 +13,5 @@ module.exports = app => {
   app.put("/skinissue/:id",  verifyToken,  isAdmin, upload.single("files")  , skinissue.update)
   app.post("/newskinissue",  verifyToken,  upload.single("files"), skinissue.createNewSkinIssue)
   app.get("/allskinissue",  verifyToken,    skinissue.findAllSkinIssue);
-// app.get("/products/count",  verifyToken, isAdmin,  product.count)
+ app.delete("/skinissue/:id",  verifyToken, isAdmin,  skinissue.deleteSkinIssue)
 }

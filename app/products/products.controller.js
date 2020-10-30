@@ -295,3 +295,16 @@ exports.deleteAdvert = async (req, res) => {
            res.status(500).send({message:"Error while getting questions "})
        }
 }
+
+exports.deleteProduct = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const deleteproduct = await Products.findByIdAndRemove(id)
+        console.log(deleteproduct)
+        res.status(200).send({message:"Deleted succesfully"})
+         
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while getting questions "})
+       }
+}
