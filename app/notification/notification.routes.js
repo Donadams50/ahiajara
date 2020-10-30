@@ -6,6 +6,6 @@ module.exports = app => {
         //console.log("routes")
  app.get("/unreadnotifications", verifyToken, notification.getUnread)
  app.get("/allnotifications", verifyToken,notification.findAllNotifications)
- app.post("/markread/:id",  verifyToken, notification.markRead)
+ app.post("/markread",  verifyToken, notification.markRead)
  app.get("/notifications/:id",  verifyToken, notification.getNotificationById)
 }

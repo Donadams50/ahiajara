@@ -174,10 +174,11 @@ exports.markRead = async (req, res) => {
    
       const   messageTo = req.user.id         
   
-      const markread = await Notifications.findOneAndUpdate({messageTo  }, { read: true });
-          console.log(markread)        
+      const markread = await Notifications.updateMany({messageTo  }, { read: true });
+         // console.log(markread)  
+          if(markread.nModified > 0)      {
           res.status(200).send({message:"Mark read was succesfully"})       
-          
+        }
          
                         
      }catch(err){
