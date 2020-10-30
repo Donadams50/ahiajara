@@ -172,9 +172,9 @@ exports.Notification = async(req, res) => {
 exports.markRead = async (req, res) => {
   try{
    
-      const   _id = req.params.id         
+      const   messageTo = req.user.id         
   
-      const markread = await Notifications.findOneAndUpdate({ _id }, { read: true });
+      const markread = await Notifications.findOneAndUpdate({messageTo  }, { read: true });
           console.log(markread)        
           res.status(200).send({message:"Mark read was succesfully"})       
           

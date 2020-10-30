@@ -9,9 +9,8 @@ module.exports = mongoose => {
           firstName:String,
           lastName:String,
           email:String,
-          address:String,
-          country:String,
-          city: String,
+          phoneNo:String,
+          
           reply: String
           
         },

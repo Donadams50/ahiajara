@@ -31,10 +31,10 @@ exports.create = async(req, res) => {
       logger.add(new winston.transports.Console({
         format: winston.format.simple()
       }));
-    const {   productId, userId, quantitySelected, firstName , lastName , email , address , country , city  } = req.body;
+    const {   productId, userId, quantitySelected  } = req.body;
     
-    if ( productId && userId && quantitySelected && firstName && lastName && email &&  address && country && city){
-        if ( productId==="" || userId==="" || quantitySelected==="" || firstName === "" || lastName === "" || email === " " ||  address === "" || country  === "" || city === ""){
+    if ( productId && userId && quantitySelected ){
+        if ( productId==="" || userId==="" || quantitySelected==="" ){
             res.status(400).send({
                 message:"Incorrect entry format"
             });
@@ -55,12 +55,11 @@ exports.create = async(req, res) => {
                 productId: req.body.productId,
                 userId: req.user.id,
                 quantitySelected: req.body.quantitySelected,
-                firstName:req.body.firstName,
-                lastName:req.body.lastName,
-                email:req.body.email,
-                address:req.body.address,
-                country:req.body.country,
-                city: req.body.city,
+                firstName:req.user.firstName,
+                lastName:req.user.lastName,
+                email:req.user.email,
+                phoneNo:req.user.phoneNo,
+               
                 reply: " "
                 
           
@@ -78,7 +77,7 @@ exports.create = async(req, res) => {
                 messageFrom: req.user.id,
                 messageFromFirstname: req.user.firstName,
                 messageFromLastname: req.user.lastName,
-                message: 'A new product request from '+req.user.firstName+' '+req.body.lastName+''
+                message: 'A new product request from '+req.user.firstName+' '+req.user.lastName+''
                 
           
               });
