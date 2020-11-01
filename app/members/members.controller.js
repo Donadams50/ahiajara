@@ -3,6 +3,8 @@ const db = require("../mongoose");
 const Members = db.profiles;
 const Auths = db.auths;
 const Carts = db.carts;
+const Feedback = db.feedbacks;
+const Notifications = db.notifications;
 const passwordUtils =require('../helpers/passwordUtils');
 const jwtTokenUtils = require('../helpers/jwtTokenUtils.js');
 const sendemail = require('../helpers/emailhelper.js');
@@ -218,6 +220,127 @@ exports.findAllPublished = (req, res) => {
   
 };
 
+
+exports.postFeedback = async(req, res) => {
+    console.log(req.body)
+    
+    
+          
+            const feedback  = new Feedback({
+                
+                username:req.user.username,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName,
+                email: req.user.email,
+                message: req.body.message
+          
+              });
+    
+         
+            try{
+                const findadmin = await Members.findOne({isAdmin: 'true'} )
+            //  console.log(findadmin)
+              console.log(findadmin.id)
+              const notify = new Notifications({
+                messageTo: findadmin.id,              
+                read: false,
+                messageFrom: req.user.id,
+                messageFromFirstname: req.user.firstName,
+                messageFromLastname: req.user.lastName,
+                message: 'A  new feed back from '+req.user.firstName+' '+req.user.lastName+''
+                
+          
+              });
+      
+              const postFeedback = await  feedback.save()
+              console.log(postFeedback)
+           
+               if(postFeedback){
+                const  notification = await  notify.save()
+               res.status(201).send({message:"entry question created"})
+                  
+                
+               }else{
+                 
+             
+              res.status(400).send({message:"feed back not  posted"})
+                
+          }
+                       
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while posting feedback "})
+            }
+        
+    };
+
+
+
+    
+
+    exports.changeAdminPassword = async(req,res)=>{
+        if (!req.body){
+            res.status(400).send({message:"Content cannot be empty"});
+        }
+    console.log(req.body)
+      // let {myrefCode} = req.query;
+        const {   email, password } = req.body;
+      
+        if ( email && password  ){
+            if ( email==="" || password===""  ){
+                res.status(400).send({
+                    message:"Incorrect entry format"
+                });
+            }else{
+                
+                
+    
+             
+                try{
+                  const isUserExist = await Members.findOne({email: email} )
+            
+                    if(isUserExist.isAdmin === true){
+                    newpassword = await passwordUtils.hashPassword(req.body.password.toLowerCase());
+                    console.log("newpassword")
+                    console.log(newpassword)               
+                    const email = req.body.email.toLowerCase();
+                    const updatePassword = await Auths.findOneAndUpdate({ email }, { passsword: newpassword });
+                    console.log(updatePassword)
+ 
+                    const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
+                    const subject = 'Succesful Registration link';                      
+                    const hostUrl = "ahiajara.netlify.app/dashboard"
+                    const hostUrl2 = "https://ahiajara.netlify.app/dashboard"    
+                    const   text = "Your password has just been changed"
+                    const emailTo = req.body.email.toLowerCase();
+                    const link = `${hostUrl}`;
+                    const link2 = `${hostUrl2}`;
+                     processEmail(emailFrom, emailTo, subject, link, link2, text, "Admin");
+                      
+                res.status(201).send({message:"Password changed succesfully"})
+                                     
+                   }
+                    else{
+ 
+
+
+                res.status(400).send({message:" Email already exists"})
+
+              }
+                           
+                    
+                }catch(err){
+                    console.log(err)
+                    res.status(500).send({message:"Error while creating profile "})
+                }
+            }
+        }else{
+            res.status(400).send({
+                message:"Incorrect entry format"
+            });
+        }
+    }
 // process email one
 async function processEmail(emailFrom, emailTo, subject, link, link2, text, fName){
   try{

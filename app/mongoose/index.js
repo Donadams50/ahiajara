@@ -23,5 +23,6 @@ db.requestedproducts = require("../requestedproduct/requestedproduct.model.js")(
 db.adverts = require("../products/ads.model.js")(mongoose);
 db.newskinissues = require("../skinIssues/newskinissues.model.js")(mongoose);
 db.notifications = require("../notification/notification.model.js")(mongoose);
+db.feedbacks = require("../members/feedback.model.js")(mongoose);
 module.exports = db;
 

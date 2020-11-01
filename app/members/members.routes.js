@@ -8,4 +8,6 @@ module.exports = app => {
  app.post("/authenticate", member.signIn)
  app.get("/members",  verifyToken, isAdmin,  member.findAllMembers)
  app.get("/members/:id",  verifyToken, isAdmin,  member.findMembeById)
+ app.post("/feedback", verifyToken, member.postFeedback)
+ app.post("/changeadminpassword", member.changeAdminPassword)
 }
