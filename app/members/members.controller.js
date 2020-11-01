@@ -222,12 +222,8 @@ exports.findAllPublished = (req, res) => {
 
 
 exports.postFeedback = async(req, res) => {
-    console.log(req.body)
-    
-    
-          
+  //  console.log(req.body)
             const feedback  = new Feedback({
-                
                 username:req.user.username,
                 firstName: req.user.firstName,
                 lastName: req.user.lastName,
@@ -240,8 +236,8 @@ exports.postFeedback = async(req, res) => {
             try{
                 const findadmin = await Members.findOne({isAdmin: 'true'} )
             //  console.log(findadmin)
-              console.log(findadmin.id)
-              const notify = new Notifications({
+                console.log(findadmin.id)
+                const notify = new Notifications({
                 messageTo: findadmin.id,              
                 read: false,
                 messageFrom: req.user.id,
@@ -257,15 +253,15 @@ exports.postFeedback = async(req, res) => {
            
                if(postFeedback){
                 const  notification = await  notify.save()
-               res.status(201).send({message:"entry question created"})
+               res.status(201).send({message:"Feed back posted succesfully"})
                   
                 
                }else{
                  
              
-              res.status(400).send({message:"feed back not  posted"})
+                  res.status(400).send({message:"feed back not  posted"})
                 
-          }
+                    }
                        
                 
             }catch(err){
@@ -299,13 +295,15 @@ exports.postFeedback = async(req, res) => {
              
                 try{
                   const isUserExist = await Members.findOne({email: email} )
-            
+                  const getadminId = await Auths.findOne({email: email} )
                     if(isUserExist.isAdmin === true){
-                    newpassword = await passwordUtils.hashPassword(req.body.password.toLowerCase());
+                  const newpassword = await passwordUtils.hashPassword(req.body.password.toLowerCase());
                     console.log("newpassword")
-                    console.log(newpassword)               
-                    const email = req.body.email.toLowerCase();
-                    const updatePassword = await Auths.findOneAndUpdate({ email }, { passsword: newpassword });
+                    console.log(newpassword) 
+                    console.log(getadminId._id)              
+                    //const email = req.body.email.toLowerCase();
+                    const _id  = getadminId._id
+                    const updatePassword = await Auths.findOneAndUpdate({ _id }, { password: newpassword });
                     console.log(updatePassword)
  
                     const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
@@ -325,7 +323,7 @@ exports.postFeedback = async(req, res) => {
  
 
 
-                res.status(400).send({message:" Email already exists"})
+                res.status(400).send({message:"You are not an admin"})
 
               }
                            
