@@ -10,26 +10,30 @@ const Notifications = db.notifications;
 // Add new product to database
 exports.create = async(req, res) => {
   console.log(req.body)
+  console.log(JSON.parse( req.body.products))
+  console.log(JSON.parse( req.body.shippinDetails))
   // let {myrefCode} = req.query;
-  const {   name, quantityRequested  , price } = req.body;
+  const {    paymentId  , amountPaid } = req.body;
   
-  if ( totalPrice && paymentId && products ){
-      if ( totalPrice==="" || paymentId===""  ){
+  if ( amountPaid && paymentId  ){
+      if ( amountPaid==="" || paymentId===""  ){
           res.status(400).send({
               message:"Incorrect entry format"
           });
       }else{
     
-        
+        const shippingaddress = JSON.parse( req.body.shippinDetails)
           const orders = new Orders({
              
               paymentId: req.body.paymentId,
-              totalPrice: req.body.totalPrice,
+              totalPrice: req.body.amountPaid,
               status: "Pending",
               userId: req.user.id,
               firstName: req.user.firstName,
               lastName: req.user.lastName,
-              products: req.body.products
+              products: JSON.parse( req.body.products) ,
+              shippinDetails: shippingaddress
+            
 
         
             });
@@ -63,6 +67,7 @@ exports.create = async(req, res) => {
             
                
                 const makeorder = await  orders.save()
+                const  requestOrder = await  notify.save()
                 console.log(makeorder)
                res.status(201).send({message:"Order Succesful the admin will attend to it shortly"})
               

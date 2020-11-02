@@ -8,7 +8,8 @@ module.exports = mongoose => {
         firstName: String,
         lastName: String,
         products: Array,
-        paymentId: String
+        paymentId: String,
+        shippinDetails: Array
       },
       { timestamps: true }
     );

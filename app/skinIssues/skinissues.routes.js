@@ -7,9 +7,9 @@ module.exports = app => {
  
         
   app.post("/symptom",  verifyToken, isAdmin, skinissue.createSymptom);
-  app.get("/symptom/:category",  verifyToken, isAdmin,  skinissue.findSymptoms);
+  app.get("/symptom/:category",  verifyToken,   skinissue.findSymptoms);
   app.post("/skinissue",  verifyToken, isAdmin, upload.single("files"), skinissue.createSkinIssue);
-  app.get("/skinissue",  verifyToken, isAdmin,   skinissue.findSkinIssue);
+  app.get("/skinissue",  verifyToken,    skinissue.findSkinIssue);
     app.put("/skinissue/:id",  verifyToken,  isAdmin, upload.single("files")  , skinissue.update)
   app.post("/newskinissue",  verifyToken,  upload.single("files"), skinissue.createNewSkinIssue)
   app.get("/allskinissue",  verifyToken,    skinissue.findAllSkinIssue);
