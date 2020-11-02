@@ -3,7 +3,7 @@ const Orders = db.orders;
 const Members = db.profiles;
 const Products = db.products;
 const Dispatchs = db.dispatchs;
-
+const Notifications = db.notifications;
 
   const sendemail = require('../helpers/emailhelper.js');
 
@@ -46,6 +46,20 @@ exports.create = async(req, res) => {
                const link = `${hostUrl}`;
                  const link2 = `${hostUrl2}`;
                  processEmail(emailFrom, emailTo, subject, link, link2, text, admin);
+
+                 const findadmin = await Members.findOne({isAdmin: 'true'} )
+                 console.log(findadmin)
+                  console.log(findadmin.id)
+                 const notify = new Notifications({
+                messageTo: findadmin.id,              
+                read: false,
+                messageFrom: req.user.id,
+                messageFromFirstname: req.user.firstName,
+                messageFromLastname: req.user.lastName,
+                message: 'A new order request from '+req.user.firstName+' '+req.user.lastName+''
+                
+          
+              });
             
                
                 const makeorder = await  orders.save()
