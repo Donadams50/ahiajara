@@ -82,7 +82,6 @@ exports.create = async(req, res) => {
           
               });
               const  requestedProduct = await  requestedproduct.save()
-              //console.log(requestedProduct)
            
                if(requestedProduct._id){
                 const  requestedProduct = await  notify.save()
@@ -133,7 +132,7 @@ exports.create = async(req, res) => {
         try{
          
             let userId = req.params.userId;         
-                const findrequestedProduct = await Requestedproducts.find({userId:userId})
+                const findrequestedProduct = await Requestedproducts.find({userId:userId}).sort({"_id": -1})
                 .populate('productId')
                 console.log(findrequestedProduct)
                 res.status(200).send(findrequestedProduct)
@@ -164,7 +163,7 @@ exports.create = async(req, res) => {
         try{
          
             let productId = req.params.productId;         
-                const findrequestedProduct = await Requestedproducts.findOne({_id:productId})
+                const findrequestedProduct = await Requestedproducts.findOne({_id:productId}).sort({"_id": -1})
                 .populate('productId')
                 logger.log({
                   level: 'info',
@@ -203,7 +202,7 @@ exports.create = async(req, res) => {
     exports.findAll = async (req, res) => {
         try{
              
-                const findrequestedProduct = await Requestedproducts.find()
+                const findrequestedProduct = await Requestedproducts.find().sort({"_id": -1})
                 .populate('productId')
                 logger.log({
                   level: 'info',
