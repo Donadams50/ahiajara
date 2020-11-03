@@ -9,7 +9,7 @@ module.exports = mongoose => {
         lastName: String,
         products: Array,
         paymentId: String,
-        shippinDetails: Array
+        shippinDetails: Object
       },
       { timestamps: true }
     );
