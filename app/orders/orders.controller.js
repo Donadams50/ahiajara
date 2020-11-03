@@ -105,7 +105,7 @@ exports.dispatchOrder = async(req, res) => {
                 companyName: req.body.companyName,
                 phoneNumber: req.body.phoneNumber,
                 orderId: req.body.orderId,
-                dispatcherId: req.body.dispatcher   
+                dispatcherId: req.body.dispatcherId   
               });
     
          
