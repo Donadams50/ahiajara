@@ -11,7 +11,7 @@ const Notifications = db.notifications;
 exports.create = async(req, res) => {
   console.log(req.body)
   console.log(JSON.parse( req.body.products))
-  console.log(JSON.parse( req.body.shippinDetails))
+  
   // let {myrefCode} = req.query;
   const {    paymentId  , amountPaid } = req.body;
   
