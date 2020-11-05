@@ -22,7 +22,7 @@ exports.create = async(req, res) => {
           });
       }else{
     
-        const shippingaddress = Json.parse(req.body.shippinDetails)
+        const shippingaddress = Json.parse(req.body.shippingDetails)
           const orders = new Orders({
              
               paymentId: req.body.paymentId,
