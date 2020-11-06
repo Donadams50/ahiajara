@@ -10,9 +10,6 @@ const Notifications = db.notifications;
 // Add new product to database
 exports.create = async(req, res) => {
   console.log(req.body)
-  console.log(JSON.parse( req.body.products))
-  
-  // let {myrefCode} = req.query;
   const {    paymentId  , amountPaid } = req.body;
   
   if ( amountPaid && paymentId  ){

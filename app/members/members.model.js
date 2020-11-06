@@ -6,12 +6,8 @@ module.exports = mongoose => {
       username: String,
       phoneNo:String,
       email:String,
-      code:String,
-      forgotPasswordCode:String,
-      isVerified: Boolean,
-      password: String,
       isAdmin: Boolean,
-      shippingAddress: String
+      imgUrl: String
     },
     { timestamps: true }
   );
