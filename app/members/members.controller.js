@@ -206,8 +206,8 @@ exports.findMembeById = async (req, res) => {
 
     const {   firstName, lastName, phoneNo, imgUrl, email , isAdmin ,username} = req.body;
     
-    if ( firstName && lastName && phoneNo && imgUrl && username ){
-        if ( firstName==="" || lastName=== "" || phoneNo ==="" || imgUrl ==="" || username===""){
+    if ( firstName && lastName && phoneNo && imgUrl  ){
+        if ( firstName==="" || lastName=== "" || phoneNo ==="" || imgUrl ===""){
             res.status(400).send({
                 message:"Incorrect entry format"
             });
@@ -223,8 +223,7 @@ exports.findMembeById = async (req, res) => {
                 lastName: req.body.lastName,
                 phoneNo: req.body.phoneNo,
                 email: req.user.email,
-                isAdmin: false,
-                username: req.body.username    
+                isAdmin: false  
               });
              
     
