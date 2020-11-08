@@ -119,7 +119,7 @@ if ( email && password ){
            if(User){
             const retrievedPassword = Auth.password
             const id = User._id;
-         const {  firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email } = User
+         const {  firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email, imgUrl } = User
             const isMatch = await passwordUtils.comparePassword(password.toLowerCase(), retrievedPassword);
             console.log(isMatch )
              if (isMatch){
@@ -129,7 +129,7 @@ if ( email && password ){
             const countcart = await Carts.countDocuments({userId:id})
             let user = {}
              
-                  user.profile = { id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email } 
+                  user.profile = { id, firstName, lastName, username, isAdmin, phoneNo, createdAt, updatedAt, isVerified, email, imgUrl } 
                   user.token = tokens;   
                   user.cartcount = countcart             
                   res.status(200).send(user)                         
