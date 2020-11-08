@@ -15,5 +15,5 @@ module.exports = app => {
  app.post("/passwordchange", verifyToken, member.changePassword)
  app.post("/resetpassword", member.resetPassword)
  app.put("/member/:id", verifyToken,  member.updateMember)
- app.put("/imagemember", verifyToken,  upload.single("files"),  member.updateImage)
+ app.put("/imagemember/:id", verifyToken,  upload.single("files"),  member.updateImage)
 }

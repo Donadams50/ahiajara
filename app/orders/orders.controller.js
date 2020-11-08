@@ -147,26 +147,26 @@ exports.dispatchOrder = async(req, res) => {
 
 // complete order
 exports.completeOrder = async(req, res) => {
-    
-    
-    
-    
-         
+       
             try{
                           
-                 
-                 
-                
+              console.log(req.body)
+              console.log(req.params)  
                     const _id = req.params.orderId;
-
+                    getOrder = await Orders.findOne({_id: _id})
+                  if(getOrder.status === "Dispatched"){
                 const updateOrder = await Orders.findOneAndUpdate({ _id }, { status: 'Completed' });
-    
+                        if(updateOrder){
                   console.log(updateOrder)
 
-                 res.status(201).send({message:"Order mark completed succesfully"})
+                 res.status(200).send({message:"Order mark completed succesfully"})
 
-         
-                       
+                }else{
+                    res.status(400).send({message:"Order not found "})
+                }
+            } else{
+                res.status(400).send({message:"Order as not been dispatched "})
+            }             
         
             }catch(err){
                 console.log(err)
