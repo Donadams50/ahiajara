@@ -179,8 +179,10 @@ exports.reply = async(req, res) => {
 }
 
 };
+
+// po
 exports.postEntry = async(req, res) => {
-    console.log(req.body)
+    console.log(req.body.bespokeAnswers)
     // let {myrefCode} = req.query;
     // const {   questionAndAnswer } = req.body;
     
@@ -190,7 +192,7 @@ exports.postEntry = async(req, res) => {
     //             message:"Incorrect entry format"
     //         });
     //     }else{
-    
+        console.log(req.file)
           
             const entrys = new Entrys({
                 entryCode: getReferralCode(),
@@ -198,11 +200,12 @@ exports.postEntry = async(req, res) => {
                 firstName: req.user.firstName,
                 lastName: req.user.lastName,
                 email: req.user.email,
-                questionAndAnswer:req.body,
+                questionAndAnswer : JSON.parse(req.body.bespokeAnswers),
                 reply: "",
+                imgUrl: req.file.url
           
               });
-    
+               
          
             try{
       
@@ -260,3 +263,5 @@ exports.postEntry = async(req, res) => {
         }
     return code
     }
+
+

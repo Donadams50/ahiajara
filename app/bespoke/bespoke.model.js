@@ -3,7 +3,8 @@ module.exports = mongoose => {
       {
         question: String,
         type:String,
-        options:Array
+        options:Array,
+        imgUrl: String
       },
       { timestamps: true }
     );
@@ -17,4 +18,3 @@ module.exports = mongoose => {
     const Bespoke = mongoose.model("bespoke", schema);
     return Bespoke;
   };
-  
