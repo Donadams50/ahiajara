@@ -183,16 +183,8 @@ exports.reply = async(req, res) => {
 // po
 exports.postEntry = async(req, res) => {
     console.log(req.body.bespokeAnswers)
-    // let {myrefCode} = req.query;
-    // const {   questionAndAnswer } = req.body;
-    
-    // if ( questionAndAnswer ){
-    //     if ( questionAndAnswer===""){
-    //         res.status(400).send({
-    //             message:"Incorrect entry format"
-    //         });
-    //     }else{
-        console.log(req.file)
+   
+        console.log(req.file.url)
           
             const entrys = new Entrys({
                 entryCode: getReferralCode(),
@@ -228,12 +220,7 @@ exports.postEntry = async(req, res) => {
                 console.log(err)
                 res.status(500).send({message:"Error while creating question "})
             }
-       // }
-    // }else{
-    //     res.status(400).send({
-    //         message:"Incorrect entry format"
-    //     });
-    // }
+       
     };
 
 
