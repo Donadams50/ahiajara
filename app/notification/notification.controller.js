@@ -1,8 +1,6 @@
 const db = require("../mongoose");
 const Notifications = db.notifications;
-
-
-
+const sendemail = require('../helpers/emailhelper.js');
 
 
 
@@ -239,7 +237,7 @@ exports.postMessage = async (req, res) => {
 async function processEmail(emailFrom, emailTo, subject, phoneNo, fullName, text){
   try{
 
-     const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, phoneNo, fullName, text);
+     const sendmail =  await sendemail.sendMessage(emailFrom, emailTo, subject, phoneNo, fullName, text);
      console.log(sendmail)
       return sendmail
   }catch(err){

@@ -262,7 +262,7 @@ const handlebarsOptions= {
 
 }
 
-exports.sendM= async (emailFrom, emailTo, subject, phoneNo, fullName, text ) =>{
+exports.sendMessage= async (emailFrom, emailTo, subject, phoneNo, fullName, text ) =>{
    
     let resp= await wrapedSendMail();
      return resp;
@@ -274,7 +274,7 @@ async function wrapedSendMail(){
     auth: {
         // should be replaced with real sender's account
           user: process.env.emaillUser,
-              pass: process.env.emailPassword               
+          pass: process.env.emailPassword               
     },
     });
 const handlebarsOptions= {
@@ -293,14 +293,13 @@ const handlebarsOptions= {
         // should be replaced with real  recipient's account 
         from: emailFrom,
         to: emailTo,         
-        subject:emailSubject,
-        text:emailText,
+        subject:subject,
+        text:text,
         template: 'index5',
         context: {
-            name: shopperUsername,
-            link: emailText,
-            earnerUsername: earnerUsername,
-            cancellationReason: cancellationReason
+            name: fullName,
+            message: text,
+           
         }
     }; 
 
