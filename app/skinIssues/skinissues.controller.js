@@ -60,7 +60,8 @@ exports.update = async(req, res) => {
                 imgUrl: req.body.files,
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
-                description: req.body.description
+                description: req.body.description,
+                recommendedProducts: JSON.parse(req.body.recommendedProducts)  
                 
               });
          //     recommendedProducts: JSON.parse(req.body.recommendedProducts)  
@@ -165,7 +166,7 @@ exports.createSkinIssue = async(req, res) => {
 
   const {   name, description, category, symptom  } = req.body;
   
-  if ( category && symptom && name && description){
+  if ( category && symptom && name && description && recommendedProducts){
       if ( category==="" || symptom.length === 0 || name ==="" || description ===""){
           res.status(400).send({
               message:"Incorrect entry format"
@@ -179,7 +180,9 @@ exports.createSkinIssue = async(req, res) => {
               imgUrl: req.file.url,
               symptom: JSON.parse(req.body.symptom),
                name: req.body.name,
-              description: req.body.description
+              description: req.body.description,
+              recommendedProducts: JSON.parse(req.body.recommendedProducts)
+
               
             });
   
@@ -243,23 +246,23 @@ exports.findSkinIssue = async (req, res) => {
 
 
 exports.createNewSkinIssue = async(req, res) => {
-   // console.log(req)
+   console.log("req")
     console.log(req.body)
    console.log(req.file.url)
-  
+   console.log("req")
 
-   const {   body  } = req.body;
    
-   if (body){
-       if ( body === ""){
+   if (req.body){
+       if ( req.body === ""){
+        console.log("req55")
            res.status(400).send({
-               message:"Incorrect entry format"
+               message:"Incorrect entry format5"
            });
        }else{
-        body.imgUrl = req.file.url
+        req.body.imgUrl = req.file.url
          
            const newskinissues = new Newskinissues({
-               body: body
+               body: req.body
                
                
              });
@@ -276,12 +279,12 @@ exports.createNewSkinIssue = async(req, res) => {
            }
        }
    }else{
+    console.log("req5")
        res.status(400).send({
-           message:"Incorrect entry format"
+           message:"Incorrect entry format555"
        });
    }
    
-    
    
     };
 
@@ -289,7 +292,7 @@ exports.findAllSkinIssue = async (req, res) => {
         try{
              
                 const findAllSkinIssue = await Skinissues.find().sort({ _id: "desc" })
-                console.log(findAllSkinIssue)             
+              //  console.log(findAllSkinIssue)             
                 res.status(200).send(findAllSkinIssue)
                  
            }catch(err){

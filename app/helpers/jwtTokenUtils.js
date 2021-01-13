@@ -7,7 +7,7 @@ dotenv.config();
 
 exports.signToken= (id, fName, lName, Username, isadmin, phoneNumber, createdat, updatedat, isverified, userEmail)=> {
     const key = process.env.SECRET_KEY;
-    const token = jwt.sign({ id: id, firstName:fName , lastName:lName, username: Username,isAdmin:isadmin , phoneNo:phoneNumber, createdAt:createdat , updatedAt:updatedat, isVerified: isverified, email:userEmail  }, key, { expiresIn: '1h' });
+    const token = jwt.sign({ id: id, firstName:fName , lastName:lName, username: Username,isAdmin:isadmin , phoneNo:phoneNumber, createdAt:createdat , updatedAt:updatedat, isVerified: isverified, email:userEmail  }, key, { expiresIn: '15h' });
     return token;
   }
 
