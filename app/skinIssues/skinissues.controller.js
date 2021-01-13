@@ -164,7 +164,7 @@ exports.findSymptoms = async (req, res) => {
 exports.createSkinIssue = async(req, res) => {
   console.log(req.body)
 
-  const {   name, description, category, symptom  } = req.body;
+  const {   name, description, category, symptom, recommendedProducts  } = req.body;
   
   if ( category && symptom && name && description && recommendedProducts){
       if ( category==="" || symptom.length === 0 || name ==="" || description ===""){

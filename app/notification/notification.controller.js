@@ -205,4 +205,46 @@ exports.markRead = async (req, res) => {
      }
 };
 
+
+
+exports.postMessage = async (req, res) => {
+  try{
    
+      
+     const emailFrom ="Ahaijara";
+     const subject = req.body.subject;
+     const emailTo = req.body.email;
+     const phoneNo = req.body.phoneNo;
+     const fullName = req.body.fullName;
+     const  text = req.body.text;
+     
+        processEmail(emailFrom, emailTo, subject, phoneNo, fullName, text)
+       
+        res.status(200).send({message:"Success "})
+       
+     
+   
+         
+                        
+     }catch(err){
+      
+         console.log(err)
+         res.status(500).send({message:"Error while sending text"})
+     }
+};
+   
+
+
+
+async function processEmail(emailFrom, emailTo, subject, phoneNo, fullName, text){
+  try{
+
+     const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, phoneNo, fullName, text);
+     console.log(sendmail)
+      return sendmail
+  }catch(err){
+      console.log(err)
+      return err
+  }
+
+}
