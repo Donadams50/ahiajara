@@ -8,6 +8,7 @@ module.exports = mongoose => {
         email: String,
         questionAndAnswer:Array,
         reply:String,
+        imgUrl: String
       },
       { timestamps: true }
     );

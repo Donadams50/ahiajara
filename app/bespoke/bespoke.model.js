@@ -4,7 +4,7 @@ module.exports = mongoose => {
         question: String,
         type:String,
         options:Array,
-        imgUrl: String
+        
       },
       { timestamps: true }
     );
