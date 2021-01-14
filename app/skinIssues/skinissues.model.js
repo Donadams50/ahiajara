@@ -1,4 +1,5 @@
 module.exports = mongoose => {
+  var Schema = mongoose.Schema;
     var schema = mongoose.Schema(
       {
         name: String,
@@ -6,7 +7,8 @@ module.exports = mongoose => {
         category:String,
         symptom:Array,
         description: String,
-        recommendedProducts: Array
+        recommendedProductId:{ type: Schema.Types.ObjectId, ref: 'product' } ,
+        recommendedProduct: String
       },
       { timestamps: true }
     );
