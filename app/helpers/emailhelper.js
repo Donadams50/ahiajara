@@ -286,7 +286,7 @@ const handlebarsOptions= {
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
-
+ 
 };
     transport.use('compile', hbs(handlebarsOptions));
     const mailOptions = {
@@ -299,6 +299,7 @@ const handlebarsOptions= {
         context: {
             name: fullName,
             message: text,
+            phoneNo: phoneNo
            
         }
     }; 
