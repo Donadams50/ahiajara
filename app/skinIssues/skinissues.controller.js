@@ -30,7 +30,8 @@ exports.update = async(req, res) => {
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
                 description: req.body.description,
-                recommendedProducts: JSON.parse(req.body.recommendedProducts)    
+                recommendedProduct: req.body.recommendedProduct,
+                recommendedProductId: req.body.recommendedProductId   
               });
              
     
@@ -61,7 +62,8 @@ exports.update = async(req, res) => {
                 symptom: JSON.parse(req.body.symptom),
                  name: req.body.name,
                 description: req.body.description,
-                recommendedProducts: JSON.parse(req.body.recommendedProducts)  
+                recommendedProduct: req.body.recommendedProduct,
+                recommendedProductId: req.body.recommendedProductId
                 
               });
          //     recommendedProducts: JSON.parse(req.body.recommendedProducts)  
@@ -228,6 +230,7 @@ exports.findSkinIssue = async (req, res) => {
         console.log(offset1)
         if(offset1 === 1){
             const findAllSkinIssue = await Skinissues.find().sort({ _id: "desc" })
+            .populate('recommendedProductId')
             .limit(resultsPerPage)
             console.log(findAllSkinIssue)
             res.status(200).send(findAllSkinIssue)
