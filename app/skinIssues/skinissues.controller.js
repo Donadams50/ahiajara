@@ -11,10 +11,10 @@ exports.update = async(req, res) => {
     const _id = req.params.id;
     console.log(req.body)
 
-    const {   name, description, category, symptom  } = req.body;
+    const {   name, description, category, symptom, recommendedProductId, recommendedProduct  } = req.body;
     
-    if ( category && symptom && name && description){
-        if ( category==="" || symptom.length=== 0 || name ==="" || description ===""){
+    if ( category && symptom && name && description && recommendedProduct && recommendedProductId){
+        if ( category==="" || symptom.length=== 0 || name ==="" || description ==="" || recommendedProduct === "" || recommendedProductId=== ""){
             res.status(400).send({
                 message:"Incorrect entry format"
             });
@@ -166,10 +166,10 @@ exports.findSymptoms = async (req, res) => {
 exports.createSkinIssue = async(req, res) => {
   console.log(req.body)
 
-  const {   name, description, category, symptom, recommendedProducts  } = req.body;
+  const {   name, description, category, symptom  ,recommendedProductId, recommendedProduct } = req.body;
   
-  if ( category && symptom && name && description && recommendedProducts){
-      if ( category==="" || symptom.length === 0 || name ==="" || description ===""){
+  if ( category && symptom && name && description && recommendedProductId && recommendedProduct){
+      if ( category==="" || symptom.length === 0 || name ==="" || description ==="" || recommendedProduct === ""|| recommendedProductId === ""){
           res.status(400).send({
               message:"Incorrect entry format"
           });
