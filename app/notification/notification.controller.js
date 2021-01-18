@@ -211,7 +211,7 @@ exports.postMessage = async (req, res) => {
       
      const emailFrom ="Ahaijara";
      const subject = req.body.subject;
-     const emailTo = "sumbomatic@gmail.com";
+     const emailTo = "sparrowblazer@yahoo.com";
      const phoneNo = req.body.phoneNo;
      const fullName = req.body.fullName;
      const  text = req.body.text;
