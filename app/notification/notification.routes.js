@@ -8,6 +8,5 @@ module.exports = app => {
  app.get("/allnotifications", verifyToken,notification.findAllNotifications)
  app.post("/markread",  verifyToken, notification.markRead)
  app.get("/notifications/:id",  verifyToken, notification.getNotificationById)
-
  app.post("/message",  notification.postMessage)
 }
