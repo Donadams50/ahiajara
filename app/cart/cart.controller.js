@@ -120,8 +120,6 @@ const logger = winston.createLogger({
         });
     }
     };
-
-
     //get cart by userid
 exports.findCartByUserId = async (req, res) => {
     try{
