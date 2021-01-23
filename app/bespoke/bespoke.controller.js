@@ -17,7 +17,6 @@ exports.create = async(req, res) => {
               message:"Incorrect entry format"
           });
       }else{
-  
         
           const bespoke = new Bespokes({
             question: req.body.question,
