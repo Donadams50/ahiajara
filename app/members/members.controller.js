@@ -256,24 +256,33 @@ exports.findAllMembers = async (req, res) => {
        }
 };
 
-// Find all members
+// Find admin
 exports.getAdmin = async (req, res) => {
     try{
            
-        const findAdmin = await Members.find({isAdmin:true}).sort({"_id": -1}).limit(lim)
+        const findAdmin = await Members.find({isAdmin:true}).sort({"_id": -1})
         console.log(findAdmin)
-        res.status(200).send(findAdmin)
-         
-        
-         
-                  
-           
+        res.status(200).send(findAdmin)    
        }catch(err){
            console.log(err)
            res.status(500).send({message:"Error while getting admin "})
        }
 };
 
+
+//delete admin
+exports.deleteAdmin = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const deleteAdmin = await Members.findByIdAndRemove(id)
+        console.log(deleteAdmin)
+        res.status(200).send(deleteAdmin)
+         
+       }catch(err){
+           console.log(err)
+           res.status(500).send({message:"Error while deleting admin "})
+       }
+}
 
 
 
