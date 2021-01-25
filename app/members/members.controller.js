@@ -57,8 +57,8 @@ console.log(req.body)
                 auths.password = await passwordUtils.hashPassword(req.body.password.toLowerCase());
                 const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
                 const subject = 'Succesful Registration link';                      
-               const hostUrl = "ahiajara.netlify.app/dashboard"
-                 const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
+               const hostUrl = "ahiajara.com/dashboard"
+                 const hostUrl2 = "https://ahiajara.com/dashboard" 
               
               
             const   text = "We're excited to have you get started. Your Registration to Ahiajara skin care  was successful."
@@ -132,8 +132,8 @@ console.log(req.body)
                 auths.password = await passwordUtils.hashPassword(req.body.password.toLowerCase());
                 const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
                 const subject = 'Succesful Registration link';                      
-               const hostUrl = "ahiajara.netlify.app/dashboard"
-                 const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
+               const hostUrl = "ahiajara.com/dashboard"
+                 const hostUrl2 = "https://ahiajara.com/dashboard" 
               
               
             const   text = "We're excited to have you get started. Your Registration to Ahiajara skin care  was successful."
