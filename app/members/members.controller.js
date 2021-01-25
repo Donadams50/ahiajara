@@ -88,6 +88,81 @@ console.log(req.body)
     }
 }
 
+
+
+exports.createAdmin = async(req,res)=>{
+    if (!req.body){
+        res.status(400).send({message:"Content cannot be empty"});
+    }
+console.log(req.body)
+  // let {myrefCode} = req.query;
+    const {   email, password , firstName, lastName, phoneNo, username } = req.body;
+  
+    if ( email && password  && lastName && firstName, phoneNo ){
+        if ( email==="" || password==="" || firstName==="" || lastName==="" || phoneNo===""  ){
+            res.status(400).send({
+                message:"Incorrect entry format"
+            });
+        }else{
+            
+            
+            const members = new Members({
+                email: req.body.email.toLowerCase(),
+                firstName: req.body.firstName ,
+                lastName: req.body.lastName,
+                phoneNo: req.body.phoneNo,
+                isAdmin: true,
+                username: req.body.username,
+                imgUrl: " "
+                
+              });
+              const auths = new Auths({
+                email: req.body.email.toLowerCase(),
+                
+                
+              });
+
+         
+            try{
+              const isUserExist = await Members.findOne({email: email} )
+              console.log(isUserExist)
+               if(isUserExist){
+                res.status(400).send({message:" Email already exists"})
+               }else{
+                auths.password = await passwordUtils.hashPassword(req.body.password.toLowerCase());
+                const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
+                const subject = 'Succesful Registration link';                      
+               const hostUrl = "ahiajara.netlify.app/dashboard"
+                 const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
+              
+              
+            const   text = "We're excited to have you get started. Your Registration to Ahiajara skin care  was successful."
+                const emailTo = req.body.email.toLowerCase();
+             const link = `${hostUrl}`;
+                 const link2 = `${hostUrl2}`;
+                 processEmail(emailFrom, emailTo, subject, link, link2, text, firstName);
+                 const saveauth = await  auths.save()
+                  console.log(saveauth)
+                  if(saveauth._id){
+                 const savemember = await  members.save()
+                   console.log(savemember)
+                   }
+            res.status(201).send({message:"User  created"})
+          }
+                       
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while creating profile "})
+            }
+        }
+    }else{
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+    }
+}
+
 // Retrieve all Tutorials from the database.
 exports.signIn = async(req, res) => {
   if (!req.body){
