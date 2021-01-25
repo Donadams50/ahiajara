@@ -7,7 +7,8 @@ module.exports = app => {
 
     
  app.post("/member", member.create)
- app.post("/admin/member", member.createAdmin)
+ app.post("/admin/member", verifyToken, isAdmin, member.createAdmin)
+ app.get("/admin/member", verifyToken, isAdmin, member.getAdmin)
  app.post("/authenticate", member.signIn)
  app.get("/members",  verifyToken, isAdmin,  member.findAllMembers)
  app.get("/members/:id",  verifyToken, isAdmin,  member.findMembeById)
