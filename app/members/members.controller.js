@@ -257,35 +257,28 @@ exports.findAllMembers = async (req, res) => {
 };
 
 // Find all members
-exports.findAllMembers = async (req, res) => {
+exports.getAdmin = async (req, res) => {
     try{
-        const{ limit}= req.query
-        console.log(limit)
-      const  lim = parseInt(limit)
-      console.log(lim)
-        if(limit){
-        const findAllMembers = await Members.find({isAdmin:false}).sort({"_id": -1}).limit(lim)
-        console.log(findAllMembers)
-        res.status(200).send(findAllMembers)
-         }else{
-           const findAllMembers = await Members.find({isAdmin:false}).sort({"_id": -1})  
-           console.log(findAllMembers)
-        res.status(200).send(findAllMembers)
-         }
+           
+        const findAdmin = await Members.find({isAdmin:true}).sort({"_id": -1}).limit(lim)
+        console.log(findAdmin)
+        res.status(200).send(findAdmin)
+         
         
          
                   
            
        }catch(err){
            console.log(err)
-           res.status(500).send({message:"Error while getting all users "})
+           res.status(500).send({message:"Error while getting admin "})
        }
 };
 
 
 
+
 // find member by the id in the request
-exports.getAdmin = async (req, res) => {
+exports.findMembeById = async (req, res) => {
    try{
        
             let id = req.params.id
