@@ -291,7 +291,7 @@ exports.findMembeById = async (req, res) => {
    try{
        
             let id = req.params.id
-        const findMemberById = await Members.find({id: id})
+        const findMemberById = await Members.findOne({_id: id})
        
         console.log(findMemberById)
         res.status(200).send(findMemberById)

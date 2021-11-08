@@ -269,7 +269,7 @@ exports.saveAdvertsImage = async(req, res) => {
   };
 
   
-    exports.findAllAdverts = async (req, res) => {
+exports.findAllAdverts = async (req, res) => {
     try{
         
 
