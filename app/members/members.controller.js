@@ -470,13 +470,10 @@ exports.postFeedback = async(req, res) => {
                 res.status(500).send({message:"Error while posting feedback "})
             }
         
-    };
+};
 
 
-
-    
-
-    exports.changeAdminPassword = async(req,res)=>{
+exports.changeAdminPassword = async(req,res)=>{
         if (!req.body){
             res.status(400).send({message:"Content cannot be empty"});
         }
@@ -539,10 +536,10 @@ exports.postFeedback = async(req, res) => {
                 message:"Incorrect entry format"
             });
         }
-    }
+};
 
 
-    exports.changePassword = async(req,res)=>{
+exports.changePassword = async(req,res)=>{
         if (!req.body){
             res.status(400).send({message:"Content cannot be empty"});
         }
@@ -605,9 +602,9 @@ exports.postFeedback = async(req, res) => {
                 message:"Incorrect entry format"
             });
         }
-    }
+};
 
-    exports.resetPassword = async(req,res)=>{
+exports.resetPassword = async(req,res)=>{
         if (!req.body){
             res.status(400).send({message:"Content cannot be empty"});
         }
@@ -666,7 +663,7 @@ exports.postFeedback = async(req, res) => {
                 message:"Incorrect entry format"
             });
         }
-    }
+};
 
     
 // process email one

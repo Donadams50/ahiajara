@@ -167,6 +167,43 @@ exports.Notification = async(req, res) => {
          }
   };
 
+  exports.findNotificationsUser = async (req, res) => {
+    try{
+      const{ limit}= req.query
+      console.log(limit)
+    const  lim = parseInt(limit)
+    const userId = req.user.id
+    console.log(lim)
+      if(limit){
+     
+      let data = {}   
+            const findAllNotification = await Notifications.find({messageTo: userId}).sort({"_id": -1}).limit(lim)
+            const countunread = await Notifications.countDocuments({read:false, messageTo: userId})
+            console.log(findAllNotification)  
+            console.log(countunread)   
+            data.allNotification = findAllNotification
+            data.countunread = countunread          
+            res.status(200).send(data)
+       }else{
+      
+         let data = {}   
+            const findAllNotification = await Notifications.find({messageTo: userId}).sort({"_id": -1}) 
+            const countunread = await Notifications.countDocuments({read:false, messageTo: userId})
+            console.log(findAllNotification)  
+            console.log(countunread)   
+            data.allNotification = findAllNotification
+            data.countunread = countunread          
+            res.status(200).send(data)
+       }
+            
+           
+                          
+       }catch(err){
+        
+           console.log(err)
+           res.status(500).send({message:"Error while getting notifications"})
+       }
+};
   
   exports.getNotificationById = async (req, res) => {
     try{

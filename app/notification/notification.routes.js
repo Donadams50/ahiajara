@@ -9,4 +9,6 @@ module.exports = app => {
  app.post("/markread",  verifyToken, notification.markRead)
  app.get("/notifications/:id",  verifyToken, notification.getNotificationById)
  app.post("/message",  notification.postMessage)
+ app.get("/users/notifications", verifyToken, notification.findNotificationsUser)
+ 
 }
