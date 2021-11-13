@@ -1,6 +1,7 @@
 const db = require("../mongoose");
-const   Questionaires = db.questionaires;
+const Questionaires = db.questionaires;
 const Questionaireentrys = db.questionaireentrys;
+const Notifications = db.notifications;
 
 
  const sendemail = require('../helpers/emailhelper.js');
@@ -58,7 +59,7 @@ exports.create = async(req, res) => {
   };
 
 
-  exports.findQuestions = async (req, res) => {
+exports.findQuestions = async (req, res) => {
     try{
        ;
         const findQuestions = await Questionaires.find().sort({ _id: "desc" })
@@ -146,38 +147,34 @@ exports.getSingleEntry = async (req, res) => {
 
 // complete order
 exports.reply = async(req, res) => {
-    const {   reply } = req.body;
-    
-        if ( reply===""){
-            res.status(400).send({
-                message:"Incorrect entry format"
-            });
-        }
-    
-    else{
-         
-    try{
-                  
-        
-         
-        
+    const { reply } = req.body;
+    if( reply===""){
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+    }else{ 
+        try{
             const _id = req.params.id;
+            const updateEntry = await Questionaireentrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
+            console.log(updateEntry)
+            const findQuestionaireentrys =  await Questionaireentrys.findOne({_id: _id} )
+            const findMemberByEmail = await Members.findOne({email: findQuestionaireentrys.email})
+            const notify = new Notifications({
+            messageTo: findMemberByEmail._id,              
+            read: false,
+            messageFrom: req.user.id,
+            messageFromFirstname: "Admin",
+            messageFromLastname: "Admin",
+            message: reply
+            });
 
-        const updateEntry = await Questionaireentrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
-
-          console.log(updateEntry)
-
-         res.status(200).send({message:"Reply was saved  succesfully"})
-
- 
-               
-
-    }catch(err){
-        console.log(err)
-        res.status(500).send({message:"Error while completing order "})
+            const  notification = await  notify.save()
+            res.status(200).send({message:"Reply was saved  succesfully"})
+        }catch(err){
+            console.log(err)
+            res.status(500).send({message:"Error while completing order "})
+        }
     }
-}
-
 };
 
 exports.postEntry = async(req, res) => {

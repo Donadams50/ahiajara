@@ -94,9 +94,6 @@ exports.dispatchOrder = async(req, res) => {
                 message:"Incorrect entry format"
             });
         }else{
-      // console.log(req.file)
-      // console.log( JSON.stringify( req.file.url ) ) 
-          
             const dispatchs = new Dispatchs({
                 fullName: req.body.fullName,
                 companyName: req.body.companyName,
@@ -104,34 +101,23 @@ exports.dispatchOrder = async(req, res) => {
                 orderId: req.body.orderId,
                 dispatcherId: req.body.dispatcherId   
               });
-    
-         
             try{
-            //    const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
-            //       const subject = 'Dispatch alert';                      
-            //       const hostUrl = "ahiajara.netlify.app/dashboard"
-            //        const hostUrl2 = "https://ahiajara.netlify.app/dashboard" 
-            //     const admin = "Admin"
-            //       const   text = "An new order from "+req.user.firstName+" "+req.user.lastName+" has been placed, Login to the dashboard to view" 
-            //      const emailTo = 'tomiczilla@gmail.com'
-            //      const link = `${hostUrl}`;
-            //        const link2 = `${hostUrl2}`;
-            //        processEmail(emailFrom, emailTo, subject, link, link2, text, admin);
-              
-                 
-                  const makedispatch = await  dispatchs.save()
-                  console.log(makedispatch)
-                
-                    const _id = req.body.orderId;
-
+                const makedispatch = await  dispatchs.save()
+                console.log(makedispatch)
+                const _id = req.body.orderId;
                 const updateProduct = await Orders.findOneAndUpdate({ _id }, { status: 'Dispatched' });
-    
-                  console.log(updateProduct)
-
-                 res.status(201).send({message:"Order dispatched succesfully"})
-                
-         
-                       
+                console.log(updateProduct)
+                const findOrder =  await Orders.findOne({_id: _id} )
+                const notify = new Notifications({
+                messageTo: findOrder.userId,              
+                read: false,
+                messageFrom: req.user.id,
+                messageFromFirstname: "Admin",
+                messageFromLastname: "Admin",
+                message: "Your order has been dispatched. Order Id : "+orderId+", You will recieve your item from one of our delivery personel soon!!!"
+                });
+                const  notification = await  notify.save()
+                res.status(201).send({message:"Order dispatched succesfully"})     
         
             }catch(err){
                 console.log(err)
@@ -143,7 +129,7 @@ exports.dispatchOrder = async(req, res) => {
             message:"Incorrect entry format"
         });
     }
-    };
+};
 
 // complete order
 exports.completeOrder = async(req, res) => {
@@ -173,15 +159,7 @@ exports.completeOrder = async(req, res) => {
                 res.status(500).send({message:"Error while completing order "})
             }
      
-    };
-
-
-  // process email one
-
-
-
-
-
+};
 
 exports.findPendingOrder = async (req, res) => {
     try{
@@ -260,6 +238,7 @@ exports.findOrderById = async (req, res) => {
            res.status(500).send({message:"Error while getting orders "})
        }
 };
+
 exports.count = async (req, res) => {
     try{
 const status = "Pending"
@@ -277,6 +256,7 @@ allCount ={}
            res.status(500).send({message:"Error while counting orders "})
        }
 };
+
 async function processEmail(emailFrom, emailTo, subject, link, link2, text, fName){
   try{
       //create org details

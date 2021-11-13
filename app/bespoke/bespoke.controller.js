@@ -143,43 +143,36 @@ exports.getSingleEntry = async (req, res) => {
 }
 
 
-// complete order
 exports.reply = async(req, res) => {
-    const {   reply } = req.body;
-    
-        if ( reply===""){
+    const { reply } = req.body;
+    if ( reply===""){
             res.status(400).send({
                 message:"Incorrect entry format"
             });
-        }
-    
-    else{
-         
-    try{
-                  
-        
-         
-        
+    }else{      
+        try{
             const _id = req.params.id;
-
-        const updateEntry = await Entrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
-
-          console.log(updateEntry)
-
-         res.status(200).send({message:"Reply was saved  succesfully"})
-
- 
-               
-
-    }catch(err){
-        console.log(err)
-        res.status(500).send({message:"Error while completing order "})
+            const updateEntry = await Entrys.findOneAndUpdate({ _id }, { reply: req.body.reply });
+            console.log(updateEntry)
+            const findEntrys =  await Entrys.findOne({_id: _id} )
+            const findMemberByEmail = await Members.findOne({email: findEntrys.email})
+            const notify = new Notifications({
+            messageTo: findMemberByEmail._id,              
+            read: false,
+            messageFrom: req.user.id,
+            messageFromFirstname: "Admin",
+            messageFromLastname: "Admin",
+            message: reply
+            });
+            res.status(200).send({message:"Reply was saved  succesfully"})
+        }catch(err){
+            console.log(err)
+            res.status(500).send({message:"Error while completing order "})
+        }
     }
-}
-
 };
 
-// po
+
 exports.postEntry = async(req, res) => {
     console.log(req.body.bespokeAnswers)
    
@@ -220,34 +213,33 @@ exports.postEntry = async(req, res) => {
                 res.status(500).send({message:"Error while creating question "})
             }
        
-    };
+};
 
+function getReferralCode(){
+    var numbers = "0123456789";
 
-    function getReferralCode(){
-        var numbers = "0123456789";
+    var chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
-        var chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      
-        var code_length = 7;
-        var number_count = 3;
-        var letter_count = 4;
-      
-        var code = '';
-      
-        for(var i=0; i < code_length; i++) {
-           var letterOrNumber = Math.floor(Math.random() * 2);
-           if((letterOrNumber == 0 || number_count == 0) && letter_count > 0) {
-              letter_count--;
-              var rnum = Math.floor(Math.random() * chars.length);
-              code += chars[rnum];
-           }
-           else {
-              number_count--;
-              var rnum2 = Math.floor(Math.random() * numbers.length);
-              code += numbers[rnum2];
-           }
+    var code_length = 7;
+    var number_count = 3;
+    var letter_count = 4;
+    
+    var code = '';
+    
+    for(var i=0; i < code_length; i++) {
+        var letterOrNumber = Math.floor(Math.random() * 2);
+        if((letterOrNumber == 0 || number_count == 0) && letter_count > 0) {
+            letter_count--;
+            var rnum = Math.floor(Math.random() * chars.length);
+            code += chars[rnum];
         }
-    return code
+        else {
+            number_count--;
+            var rnum2 = Math.floor(Math.random() * numbers.length);
+            code += numbers[rnum2];
+        }
     }
+return code
+}
 
 

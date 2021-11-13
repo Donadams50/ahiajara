@@ -10,7 +10,6 @@ module.exports = mongoose => {
           lastName:String,
           email:String,
           phoneNo:String,
-          
           reply: String
           
         },

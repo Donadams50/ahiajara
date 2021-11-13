@@ -17,8 +17,8 @@ const logger = winston.createLogger({
       new winston.transports.File({ filename: 'combined.log' })
     ]
   });
- const sendemail = require('../helpers/emailhelper.js');
 
+const sendemail = require('../helpers/emailhelper.js');
 
 exports.create = async(req, res) => {
     console.log(req.body)
@@ -59,7 +59,6 @@ exports.create = async(req, res) => {
                 lastName:req.user.lastName,
                 email:req.user.email,
                 phoneNo:req.user.phoneNo,
-               
                 reply: " "
                 
           
@@ -128,7 +127,7 @@ exports.create = async(req, res) => {
     }
     };
 
-    exports.findRequestedProductByUserId = async (req, res) => {
+exports.findRequestedProductByUserId = async (req, res) => {
         try{
          
             let userId = req.params.userId;         
@@ -155,120 +154,112 @@ exports.create = async(req, res) => {
                console.log(err)
                res.status(500).send({message:"Error while getting product "})
            }
-    };
+};
 
-    
-
-    exports.findRequestedProductById = async (req, res) => {
-        try{
-         
-            let productId = req.params.productId;         
-                const findrequestedProduct = await Requestedproducts.findOne({_id:productId}).sort({"_id": -1})
-                .populate('productId')
-                logger.log({
-                  level: 'info',
-                  message:"Successfull",
-                  params: req.params,
-                  query: req.query,
-                  url: req.url,         
-                  time :  new Date()
-              
-                });
-                logger.add(new winston.transports.Console({
-                  format: winston.format.simple()
-                }));
-                res.status(200).send(findrequestedProduct)
-               
-                              
-           }catch(err){
-            logger.log({
-              level: 'error',
-              message:"Server error",
-              params: req.params,
-                  query: req.query,
-                  url: req.url,
-                  statusCode: 500,
-              time :  new Date()
-          
-            });
-            logger.add(new winston.transports.Console({
-              format: winston.format.simple()
-            }));
-               console.log(err)
-               res.status(500).send({message:"Error while getting product "})
-           }
-    };
-
-    exports.findAll = async (req, res) => {
-        try{
-             
-                const findrequestedProduct = await Requestedproducts.find().sort({"_id": -1})
-                .populate('productId')
-                logger.log({
-                  level: 'info',
-                  message:"Successfull",
-                  params: req.params,
-                  query: req.query,
-                  url: req.url,         
-                  time :  new Date()
-              
-                });
-                logger.add(new winston.transports.Console({
-                  format: winston.format.simple()
-                }));
-                res.status(200).send(findrequestedProduct)
-               
-                              
-           }catch(err){
-            logger.log({
-              level: 'error',
-              message:"Server error",
-              params: req.params,
-                  query: req.query,
-                  url: req.url,
-                  statusCode: 500,
-              time :  new Date()
-          
-            });
-            logger.add(new winston.transports.Console({
-              format: winston.format.simple()
-            }));
-               console.log(err)
-               res.status(500).send({message:"Error while getting product "})
-           }
-    };
-
-    exports.reply = async(req, res) => {
-    const {   reply } = req.body;
-    
-        if ( reply===""){
-            res.status(400).send({
-                message:"Incorrect entry format"
-            });
-        }
-    
-    else{
-         
+exports.findRequestedProductById = async (req, res) => {
     try{
-                  
-        
-         
-        
-            const _id = req.params.id;
+      
+        let productId = req.params.productId;         
+            const findrequestedProduct = await Requestedproducts.findOne({_id:productId}).sort({"_id": -1})
+            .populate('productId')
+            logger.log({
+              level: 'info',
+              message:"Successfull",
+              params: req.params,
+              query: req.query,
+              url: req.url,         
+              time :  new Date()
+          
+            });
+            logger.add(new winston.transports.Console({
+              format: winston.format.simple()
+            }));
+            res.status(200).send(findrequestedProduct)
+            
+                          
+        }catch(err){
+        logger.log({
+          level: 'error',
+          message:"Server error",
+          params: req.params,
+              query: req.query,
+              url: req.url,
+              statusCode: 500,
+          time :  new Date()
+      
+        });
+        logger.add(new winston.transports.Console({
+          format: winston.format.simple()
+        }));
+            console.log(err)
+            res.status(500).send({message:"Error while getting product "})
+        }
+};
 
+exports.findAll = async (req, res) => {
+    try{
+            const findrequestedProduct = await Requestedproducts.find().sort({"_id": -1})
+            .populate('productId')
+            logger.log({
+              level: 'info',
+              message:"Successfull",
+              params: req.params,
+              query: req.query,
+              url: req.url,         
+              time :  new Date()
+          
+            });
+            logger.add(new winston.transports.Console({
+              format: winston.format.simple()
+            }));
+            res.status(200).send(findrequestedProduct)
+            
+                          
+        }catch(err){
+        logger.log({
+          level: 'error',
+          message:"Server error",
+          params: req.params,
+              query: req.query,
+              url: req.url,
+              statusCode: 500,
+          time :  new Date()
+      
+        });
+        logger.add(new winston.transports.Console({
+          format: winston.format.simple()
+        }));
+            console.log(err)
+            res.status(500).send({message:"Error while getting product "})
+        }
+};
+
+exports.reply = async(req, res) => {
+  const {   reply } = req.body;
+  if (reply===""){
+        res.status(400).send({
+            message:"Incorrect entry format"
+        });
+  }else{    
+    try{
+        const _id = req.params.id;
         const updateRequestedProduct = await Requestedproducts.findOneAndUpdate({ _id }, { reply: req.body.reply });
-
-          console.log(updateRequestedProduct)
-
-         res.status(200).send({message:"Reply was saved  succesfully"})
-
- 
-               
-
+        const findRequestedProduct =  await Requestedproducts.findOne({_id: _id} )
+        const notify = new Notifications({
+          messageTo: findRequestedProduct.userId,              
+          read: false,
+          messageFrom: req.user.id,
+          messageFromFirstname: "Admin",
+          messageFromLastname: "Admin",
+          message: reply
+        });
+        const  notification = await  notify.save()
+        console.log(updateRequestedProduct)
+        res.status(200).send({message:"Reply was saved  succesfully"})
     }catch(err){
         console.log(err)
         res.status(500).send({message:"Error while updating requested product "})
     }
-}
+  }
 
 };

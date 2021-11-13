@@ -294,7 +294,7 @@ exports.deleteAdvert = async (req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting questions "})
        }
-}
+};
 
 exports.deleteProduct = async (req, res) => {
     try{
@@ -307,4 +307,4 @@ exports.deleteProduct = async (req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting questions "})
        }
-}
+};
