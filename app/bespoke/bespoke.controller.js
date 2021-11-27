@@ -1,11 +1,11 @@
 const db = require("../mongoose");
 const Bespokes = db.bespokes;
 const Entrys = db.entrys;
+const Members = db.profiles;
 
+const sendemail = require('../helpers/emailhelper.js');
 
- const sendemail = require('../helpers/emailhelper.js');
-
- // Add new symptom  to category
+//Add new symptom  to category
 exports.create = async(req, res) => {
   console.log(req.body)
   // let {myrefCode} = req.query;
@@ -54,10 +54,9 @@ exports.create = async(req, res) => {
           message:"Incorrect entry format"
       });
   }
-  };
+};
 
-
-  exports.findQuestions = async (req, res) => {
+exports.findQuestions = async (req, res) => {
     try{
        ;
         const findQuestions = await Bespokes.find().sort({ _id: "desc" })
@@ -68,7 +67,7 @@ exports.create = async(req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting questions "})
        }
-}
+};
 
 exports.update = async (req, res) => {
     const _id = req.params.id;
@@ -96,7 +95,7 @@ exports.update = async (req, res) => {
                             console.log(err)
                             res.status(500).send({message:"Error while updating Bespoke "})
                         }
-}
+};
 
 exports.deleteQuestion = async (req, res) => {
     try{
@@ -109,7 +108,7 @@ exports.deleteQuestion = async (req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting questions "})
        }
-}
+};
 
 exports.getEntry = async (req, res) => {
     try{
@@ -122,8 +121,7 @@ exports.getEntry = async (req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting Entries "})
        }
-}
-
+};
 
 exports.getSingleEntry = async (req, res) => {
     try{
@@ -140,8 +138,7 @@ exports.getSingleEntry = async (req, res) => {
            console.log(err)
            res.status(500).send({message:"Error while getting Entries "})
        }
-}
-
+};
 
 exports.reply = async(req, res) => {
     const { reply } = req.body;
@@ -171,7 +168,6 @@ exports.reply = async(req, res) => {
         }
     }
 };
-
 
 exports.postEntry = async(req, res) => {
     console.log(req.body.bespokeAnswers)
@@ -241,5 +237,3 @@ function getReferralCode(){
     }
 return code
 }
-
-
