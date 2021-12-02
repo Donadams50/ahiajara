@@ -2,6 +2,7 @@ const db = require("../mongoose");
 const Bespokes = db.bespokes;
 const Entrys = db.entrys;
 const Members = db.profiles;
+const Notifications = db.notifications;
 
 const sendemail = require('../helpers/emailhelper.js');
 
