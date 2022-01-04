@@ -169,6 +169,17 @@ exports.reply = async(req, res) => {
             message: reply
             });
 
+            const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
+            const subject = 'Notification';                      
+            const hostUrl = "ahiajara.com/dashboard"
+            const hostUrl2 = "https://ahiajara.com/dashboard" 
+            const   text = reply
+            const emailTo = findQuestionaireentrys.email.toLowerCase();
+            const link = `${hostUrl}`;
+            const link2 = `${hostUrl2}`;
+            const firstName = findMemberByEmail.firstName
+            processEmail(emailFrom, emailTo, subject, link, link2, text, firstName);
+
             const  notification = await  notify.save()
             res.status(200).send({message:"Reply was saved  succesfully"})
         }catch(err){
@@ -259,3 +270,21 @@ exports.postEntry = async(req, res) => {
         }
     return code
     }
+
+
+    
+
+// process email one
+async function processEmail(emailFrom, emailTo, subject, link, link2, text, fName){
+    try{
+        //create org details
+        // await delay();
+       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, text, fName);
+     //  console.log(sendmail)
+        return sendmail
+    }catch(err){
+        console.log(err)
+        return err
+    }
+  
+  }

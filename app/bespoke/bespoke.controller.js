@@ -162,6 +162,18 @@ exports.reply = async(req, res) => {
             messageFromLastname: "Admin",
             message: reply
             });
+            const  notification = await  notify.save()
+
+                const emailFrom = 'Ahiajara Skin care    <noreply@Ahiajara.com>';
+                const subject = 'Notification';                      
+                const hostUrl = "ahiajara.com/dashboard"
+                const hostUrl2 = "https://ahiajara.com/dashboard" 
+                const   text = reply
+                const emailTo = findEntrys.email.toLowerCase();
+                const link = `${hostUrl}`;
+                const link2 = `${hostUrl2}`;
+                const firstName = findMemberByEmail.firstName
+                processEmail(emailFrom, emailTo, subject, link, link2, text, firstName);
             res.status(200).send({message:"Reply was saved  succesfully"})
         }catch(err){
             console.log(err)
@@ -238,3 +250,20 @@ function getReferralCode(){
     }
 return code
 }
+
+
+
+// process email one
+async function processEmail(emailFrom, emailTo, subject, link, link2, text, fName){
+    try{
+        //create org details
+        // await delay();
+       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, text, fName);
+     //  console.log(sendmail)
+        return sendmail
+    }catch(err){
+        console.log(err)
+        return err
+    }
+  
+  }
