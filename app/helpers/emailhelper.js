@@ -11,14 +11,16 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, email
 
     async function wrapedSendMail(){
         return new Promise((resolve,reject)=>{
-        let transport = nodemailer.createTransport({
-            service: 'gmail',
-        auth: {
-            // should be replaced with real sender's account
-            user: process.env.emaillUser,
-            pass: process.env.emailPassword        
-        },
-        });
+            let transport = nodemailer.createTransport({
+    
+                host: process.env.mailName,
+                port: 465,
+                secure: true, 
+                auth: {
+                        user: process.env.user,
+                        pass:  process.env.pass  
+               }  
+               });
   const handlebarsOptions= {
       viewEngine:{
           extName:'index.handlebars',
