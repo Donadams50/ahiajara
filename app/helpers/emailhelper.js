@@ -26,7 +26,7 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, email
           extName:'index.handlebars',
           partialsDir: './',
           layoutsDir: './',
-          defaultLayout:'./app/Helpers/index'
+          defaultLayout:'./app/helpers/index'
       },
       viewPath:'./app/Helpers',
       extName:'.handlebars',
@@ -92,7 +92,7 @@ const handlebarsOptions= {
       extName:'forgotpassword.handlebars',
       partialsDir: './',
       layoutsDir: './',
-      defaultLayout:'./app/Helpers/forgotpassword'
+      defaultLayout:'./app/helpers/forgotpassword'
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
@@ -155,7 +155,7 @@ const handlebarsOptions= {
       extName:'twofactorauth.handlebars',
       partialsDir: './',
       layoutsDir: './',
-      defaultLayout:'./app/Helpers/twofactorauth'
+      defaultLayout:'./app/helpers/twofactorauth'
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
@@ -219,7 +219,7 @@ const handlebarsOptions= {
       extName:'notifyuser.handlebars',
       partialsDir: './',
       layoutsDir: './',
-      defaultLayout:'./app/Helpers/notifyuser'
+      defaultLayout:'./app/helpers/notifyuser'
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
@@ -284,7 +284,7 @@ const handlebarsOptions= {
       extName:'index5.handlebars',
       partialsDir: './',
       layoutsDir: './',
-      defaultLayout:'./app/Helpers/index5'
+      defaultLayout:'./app/helpers/index5'
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
