@@ -28,7 +28,7 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, email
           layoutsDir: './',
           defaultLayout:'./app/helpers/index'
       },
-      viewPath:'./app/Helpers',
+      viewPath:'./app/helpers',
       extName:'.handlebars',
    
   };
@@ -94,7 +94,7 @@ const handlebarsOptions= {
       layoutsDir: './',
       defaultLayout:'./app/helpers/forgotpassword'
   },
-  viewPath:'./app/Helpers',
+  viewPath:'./app/helpers',
   extName:'.handlebars',
 };
     transport.use('compile', hbs(handlebarsOptions));
